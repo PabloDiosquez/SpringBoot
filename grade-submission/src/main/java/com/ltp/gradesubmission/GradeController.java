@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class GradeController {
-    @GetMapping(path="hello")
-    public String sayHello(){
-        return "Hello World!!";
+    @GetMapping(path="/grades")
+    public String getGrades(){
+        return "grades";
     }
 }
