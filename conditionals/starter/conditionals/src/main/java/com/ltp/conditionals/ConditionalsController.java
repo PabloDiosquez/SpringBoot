@@ -11,7 +11,7 @@ public class ConditionalsController {
     @GetMapping(value="/")
     public String getMethodName(Model model) {
         model.addAttribute("sales", 100);
+        model.addAttribute("product", "table");
         return "conditionals";
     }
-    
 }
