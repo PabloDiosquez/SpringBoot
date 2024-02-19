@@ -10,7 +10,7 @@ public class WorkbookController {
     @GetMapping(path="/")
     public String getShows(Model model){
         Show show = new Show("Breaking Bad", "Ozymandias", 10.0);
-        model.addAttribute(show);
+        model.addAttribute("show", show);
         return "shows";
     }
 }
