@@ -12,11 +12,11 @@
                 <th>Cost</th>
                 <th>Profit</th>
             </tr>
-            <tr th:each="record : ${records}">
+            <tr th:each="record : ${records}" th:style="${record.revenue - record.cost> 0 ? 'background-color:green' : 'background-color:red'}">
                 <td th:text="${record.item}"></td>
-                <td th:text="${#numbers.formatCurrency(record.revenue)}" th:style="${record.revenue > 0 ? 'background-color:green' : 'background-color:red'}"></td>
-                <td th:text="${#numbers.formatCurrency(record.cost)}" th:style="${record.cost > 0 ? 'background-color:green' : 'background-color:red'}"></td>
-                <td th:text="${#numbers.formatCurrency(record.revenue - record.cost)}" th:style="${record.revenue - record.cost> 0 ? 'background-color:green' : 'background-color:red'}"></td>
+                <td th:text="${#numbers.formatCurrency(record.revenue)}"></td>
+                <td th:text="${#numbers.formatCurrency(record.cost)}"></td>
+                <td th:text="${#numbers.formatCurrency(record.revenue - record.cost)}"></td>
             </tr>
         </table>
     </body>
