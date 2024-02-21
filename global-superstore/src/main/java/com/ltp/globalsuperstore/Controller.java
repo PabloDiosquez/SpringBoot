@@ -10,7 +10,6 @@ import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-
     private List<Item> items = new ArrayList<>();
 
     @GetMapping(path="/")
@@ -20,7 +19,8 @@ public class Controller {
     }
 
     @GetMapping(path="/inventory")
-    public String getInventory(){
+    public String getInventory(Model model){
+        model.addAttribute("items", items);
         return "inventory";
     }
 
