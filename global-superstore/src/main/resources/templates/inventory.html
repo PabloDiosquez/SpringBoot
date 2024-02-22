@@ -19,13 +19,13 @@
                  <th> </th>
               </tr>
               <tr th:each="item : ${items}">
-                 <td th:text="*{category}"></td>
-                 <td th:text="*{name}">Table</td>
-                 <td th:text="*{price}" type="currency" ></td>
-                 <td th:text="*{discount}" type="currency"></td>
-                 <td th:text="*{date}" type="date"></td>
+                 <td th:text="${item.category}"></td>
+                 <td th:text="${item.name}">Table</td>
+                 <td th:text="${#numbers.formatCurrency(item.price)}"></td>
+                 <td th:text="${#numbers.formatCurrency(item.discount)}"></td>
+                 <td th:text="${#dates.format(item.date, 'yyyy-MM-dd')}" type="date"></td>
                  <td>
-                    <a role="button" style="color:white; background-color: #263238" class="table-button">Update</a>
+                    <a role="button" style="color:white; background-color: #263238" class="table-button" th:href="@{/}">Update</a>
                  </td>
               </tr>
            </table>
