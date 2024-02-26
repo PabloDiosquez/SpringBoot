@@ -11,11 +11,16 @@
 
         <form method="post" th:object="${user}" th:action="@{/submitItem}">
             <input type="text" placeholder="First Name" th:field="*{firstname}">
+            <p style="color:red" th:errors="*{firstname}"></p>
             <input type="text" placeholder="Last Name" th:field="*{lastname}">
+            <p style="color:red" th:errors="*{lastname}"></p>
             <input type="text" placeholder="Username" th:field="*{username}">
+            <p style="color:red" th:errors="*{username}"></p>
             <input type="text" placeholder="Email" th:field="*{email}">
+            <p style="color:red" th:errors="*{email}"></p>
             <p style="font-weight: bold">Date of birth</p>
             <input type="date" th:field="*{dateOfBirth}"><br><br>
+            <p style="color:red" th:errors="*{dateOfBirth}"></p>
             <input type="submit" value="Submit">
         </form>
     </div>
