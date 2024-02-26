@@ -3,6 +3,7 @@ package com.example.javagram;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AppController {
@@ -14,5 +15,11 @@ public class AppController {
     @GetMapping(path="/result")
     public String getResult(){
         return "result";
+    }
+
+    @PostMapping(path="/submitItem")
+    public String handleSubmit(User user){
+
+        return "redirect:/result";
     }
 }

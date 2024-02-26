@@ -9,7 +9,7 @@
     <div class="container">
         <h2>Javagram</h2>
 
-        <form method="post" th:object="${user}">
+        <form method="post" th:object="${user}" th:action="@{/submitItem}">
             <input type="text" placeholder="First Name" th:field="*{firstname}">
             <input type="text" placeholder="Last Name" th:field="*{lastname}">
             <input type="text" placeholder="Username" th:field="*{username}">
