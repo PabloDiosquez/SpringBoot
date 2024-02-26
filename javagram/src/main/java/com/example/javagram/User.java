@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 public class User {
@@ -16,13 +17,21 @@ public class User {
     @NotBlank(message="Username cannot be blank" )
     @Size(min=7, message="Username is too short")
     private String username;
-    @Email
+    @Email(message="Invalid email")
     private String email;
-    @Past
+    @Past(message="Date of birth must be in the past")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dateOfBirth;
 
     public User() {
 
+    }
+    public User(String firstname, String lastname, String username, String email, Date dateOfBirth) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getFirstname() {

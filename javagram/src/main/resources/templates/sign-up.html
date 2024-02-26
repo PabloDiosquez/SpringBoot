@@ -19,10 +19,11 @@
             <input type="text" placeholder="Email" th:field="*{email}">
             <p style="color:red" th:errors="*{email}"></p>
             <p style="font-weight: bold">Date of birth</p>
-            <input type="date" th:field="*{dateOfBirth}"><br><br>
+            <input type="date" th:field="*{dateOfBirth}"> <br><br>
             <p style="color:red" th:errors="*{dateOfBirth}"></p>
             <input type="submit" value="Submit">
         </form>
+
     </div>
 </body>
 </html>
