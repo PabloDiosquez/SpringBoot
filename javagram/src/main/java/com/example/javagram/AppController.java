@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AppController {
     @GetMapping(path="/")
     public String getForm(Model model){
-        return "sign-up";
+        return "sign.up";
     }
 
     @GetMapping(path="/result")
