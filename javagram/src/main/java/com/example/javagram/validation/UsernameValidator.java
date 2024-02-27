@@ -1,5 +1,6 @@
-package com.example.javagram;
+package com.example.javagram.validation;
 
+import com.example.javagram.validation.Username;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -11,6 +12,6 @@ public class UsernameValidator implements ConstraintValidator<Username, String> 
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
         Pattern pattern = Pattern.compile("[^a-z0-9 ]");
         Matcher matcher = pattern.matcher(value);
-        return !matcher.find();
+        return !(matcher.find());
     }
 }

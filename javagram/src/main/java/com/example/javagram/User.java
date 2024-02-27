@@ -1,5 +1,7 @@
 package com.example.javagram;
 
+import com.example.javagram.validation.Age;
+import com.example.javagram.validation.Username;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;

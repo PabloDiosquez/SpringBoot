@@ -1,4 +1,4 @@
-package com.example.javagram;
+package com.example.javagram.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy=AgeValidator.class)
+@Constraint(validatedBy= AgeValidator.class)
 public @interface Age {
     String message() default "INVALID AGE";
     Class<?>[] groups() default {};

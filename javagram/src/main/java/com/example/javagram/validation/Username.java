@@ -1,4 +1,4 @@
-package com.example.javagram;
+package com.example.javagram.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
