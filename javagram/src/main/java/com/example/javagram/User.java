@@ -16,6 +16,7 @@ public class User {
     private String lastname;
     @NotBlank(message="Username cannot be blank" )
     @Size(min=7, message="Username is too short")
+    @Username(message="Cannot contain special characters or uppercase characters")
     private String username;
     @Email(message="Invalid email")
     private String email;

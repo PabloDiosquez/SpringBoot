@@ -10,10 +10,9 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy=AgeValidator.class)
-public @interface Age {
-    String message() default "INVALID AGE";
+@Constraint(validatedBy= UsernameValidator.class)
+public @interface Username {
+    String message() default "INVALID USERNAME";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-
 }
