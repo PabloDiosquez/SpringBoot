@@ -14,11 +14,16 @@
                     <option style="color:blue" value="">Choose Category</option>
                     <option th:each="category: ${categories}" th:text="${category}" th:value="${category}"> Placeholder </option>
                 </select>
+                <p style="color: red" th:errors="*{category}"></p>
                 <input type="text" placeholder="Name" th:field="*{name}">
+                <p style="color: red" th:errors="*{name}"></p>
                 <input class="half" type="text" placeholder="Price" th:field="*{price}">
+                <p style="color: red" th:errors="*{price}"></p>
                 <input class="half" type="text" placeholder="Discount" th:field="*{discount}">
+                <p style="color: red" th:errors="*{discount}"></p>
                 <h4>Order Date</h4>
                 <input type="date" style="color:black" th:field="*{date}">
+                <p style="color: red" th:errors="*{date}"></p>
                 <input type="hidden" th:field="*{id}">
                 <input type="submit" value="Submit Item">
             </form>
