@@ -22,6 +22,12 @@ public class WorkbookController {
 
     @PostMapping(path="/submitItem")
     public String handleSubmit(@Valid User user, BindingResult result){
+        if(user.getFirstname().equals(user.getLastname())){
+            result.rejectValue("lastname", "", "Please enter valid data");
+            // Argument 1: The field value you wish to reject.
+            // Argument 2: Error Code
+            // Argument 3: Error message.
+        }
         if(result.hasErrors()) return "sign-up";
         return "redirect:/result";
     }
