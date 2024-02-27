@@ -24,12 +24,14 @@ public class StoreController {
     public String getForm(Model model, @RequestParam(required = false) String id) {
         int index = getIndexFromId(id);
         model.addAttribute("item", index == Constants.NOT_FOUND ? new Item() : items.get(index));
-        model.addAttribute("categories", Constants.CATEGORIES);
         return "form";
     }
 
     @PostMapping("/submitItem")
     public String handleSubmit(@Valid Item item, BindingResult result, RedirectAttributes redirectAttributes) {
+        if(item.getPrice() < item.getDiscount()){
+            result.reject("", "The price cannot be less than the discount");
+        }
         if(result.hasErrors()) return "form";
         int index = getIndexFromId(item.getId());
         String status = Constants.SUCCESS_STATUS;
