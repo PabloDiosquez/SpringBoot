@@ -1,5 +1,6 @@
 package com.courses.app.controller;
 
+import com.courses.app.model.Content;
 import com.courses.app.model.Course;
 import com.courses.app.repository.ICourseRepository;
 import com.courses.app.service.ICourseService;
@@ -26,6 +27,17 @@ public class CourseController {
     @GetMapping(path="courses/findall")
     public List<Course> findAllCourses(){
         return this.courseService.findAllCourses();
+    }
+
+    @DeleteMapping(path="courses/delete")
+    public String deleteCourseById(@RequestParam int id){
+        this.courseService.deleteCourseById(id);
+        return "Success";
+    }
+
+    @GetMapping(path="courses/findAllContents")
+    public List<Content> findAllContents(@RequestParam int id){
+        return this.courseService.findAllContents(id);
     }
 
 }
