@@ -4,10 +4,8 @@ import com.courses.app.model.Course;
 import com.courses.app.repository.ICourseRepository;
 import com.courses.app.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 public class CourseController {
@@ -18,6 +16,16 @@ public class CourseController {
     public String saveCourse(@RequestBody Course course){
         this.courseService.saveCourse(course);
         return "Success";
+    }
+
+    @GetMapping(path="courses/find")
+    public Course findCourseById(@RequestParam int id){
+        return this.courseService.findCourseById(id);
+    }
+
+    @GetMapping(path="courses/findall")
+    public List<Course> findAllCourses(){
+        return this.courseService.findAllCourses();
     }
 
 }
