@@ -15,4 +15,6 @@ public interface ICourseService {
     void deleteCourseById(int id);
 
     List<Content> findAllContents(int id);
+
+    void updateCourse(Course course);
 }

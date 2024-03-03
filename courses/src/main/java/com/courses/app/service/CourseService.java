@@ -37,4 +37,9 @@ public class CourseService implements ICourseService{
     public List<Content> findAllContents(int id) {
         return this.findCourseById(id).getContents();
     }
+
+    @Override
+    public void updateCourse(Course course) {
+        this.courseRepository.save(course);
+    }
 }

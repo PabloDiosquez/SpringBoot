@@ -40,4 +40,10 @@ public class CourseController {
         return this.courseService.findAllContents(id);
     }
 
+    @PostMapping(path="courses/update")
+    public Course updateCourse(@RequestBody Course course){
+        this.courseService.updateCourse(course);
+        return this.courseService.findCourseById(course.getIdCourse());
+    }
+
 }
