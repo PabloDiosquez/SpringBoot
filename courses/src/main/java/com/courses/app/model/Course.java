@@ -21,5 +21,6 @@ public class Course {
     private String modality;
     @Temporal(TemporalType.DATE)
     private Date finishDate;
+    @OneToMany(mappedBy="course")
     private List<Content> contents;
 }
