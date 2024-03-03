@@ -5,7 +5,11 @@ import com.courses.app.model.Course;
 import com.courses.app.repository.ICourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,4 +46,21 @@ public class CourseService implements ICourseService{
     public void updateCourse(Course course) {
         this.courseRepository.save(course);
     }
+
+    @Override
+    public void addContent(int courseId, Content content) {
+        this.findCourseById(courseId).getContents().add(content);
+    }
+
+    @Override
+    public List<Course> findAllCoursesThatContains(String keyWord) {
+        List<Course> courses = new ArrayList<>();
+        for (Course course: this.findAllCourses()) {
+            if(course.getName().contains(keyWord)){
+                courses.add(course);
+            }
+        }
+        return courses;
+    }
+
 }

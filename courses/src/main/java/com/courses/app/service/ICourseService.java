@@ -17,4 +17,8 @@ public interface ICourseService {
     List<Content> findAllContents(int id);
 
     void updateCourse(Course course);
+
+    void addContent(int courseId, Content content);
+
+    List<Course> findAllCoursesThatContains(String keyWord);
 }

@@ -24,7 +24,7 @@ public class CourseController {
         return this.courseService.findCourseById(id);
     }
 
-    @GetMapping(path="courses/findall")
+    @GetMapping(path="courses/find-all")
     public List<Course> findAllCourses(){
         return this.courseService.findAllCourses();
     }
@@ -35,7 +35,7 @@ public class CourseController {
         return "Success";
     }
 
-    @GetMapping(path="courses/findAllContents")
+    @GetMapping(path="courses/findAll-contents")
     public List<Content> findAllContents(@RequestParam int id){
         return this.courseService.findAllContents(id);
     }
@@ -46,4 +46,14 @@ public class CourseController {
         return this.courseService.findCourseById(course.getIdCourse());
     }
 
+    @PutMapping(path="courses/add-content")
+    public String addContent(@RequestParam int courseId, @RequestBody Content content){
+        this.courseService.addContent(courseId, content);
+        return "Success";
+    }
+
+    @GetMapping(path="courses/find-all")
+    public List<Course> findAllCoursesThatContains(@RequestParam String keyWord){
+        return this.courseService.findAllCoursesThatContains(keyWord);
+    }
 }
