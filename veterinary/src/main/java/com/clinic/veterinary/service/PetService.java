@@ -5,6 +5,8 @@ import com.clinic.veterinary.repository.IPetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PetService implements IPetService{
     @Autowired
@@ -18,5 +20,20 @@ public class PetService implements IPetService{
     @Override
     public Pet findPetById(int petId) {
         return this.petRepository.findById(petId).orElse(null);
+    }
+
+    @Override
+    public List<Pet> findAllPets() {
+        return this.petRepository.findAll();
+    }
+
+    @Override
+    public void deletePetBYId(int petId) {
+        this.petRepository.deleteById(petId);
+    }
+
+    @Override
+    public void updatePet(Pet pet) {
+        this.petRepository.save(pet);
     }
 }

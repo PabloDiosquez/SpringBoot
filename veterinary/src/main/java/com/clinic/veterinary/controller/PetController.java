@@ -5,6 +5,8 @@ import com.clinic.veterinary.service.IPetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path="api/pets")
 public class PetController {
@@ -21,6 +23,25 @@ public class PetController {
     @ResponseBody
     public Pet findPetById(@RequestParam int petId){
         return this.petService.findPetById(petId);
+    }
+
+    @GetMapping(path="/find-all")
+    @ResponseBody
+    public List<Pet> findAllPets(){
+        return this.petService.findAllPets();
+    }
+
+    @DeleteMapping(path="/delete")
+    public String deletePetById(@RequestParam int petId){
+        this.petService.deletePetBYId(petId);
+        return "Success";
+    }
+
+    @PutMapping(path="/update")
+    @ResponseBody
+    public Pet updatePet(@RequestBody Pet pet){
+        this.petService.updatePet(pet);
+        return findPetById(pet.getPetId());
     }
 
 }
