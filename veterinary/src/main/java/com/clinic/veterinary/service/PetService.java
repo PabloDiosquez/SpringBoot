@@ -30,8 +30,10 @@ public class PetService implements IPetService{
     }
 
     @Override
-    public void deletePetBYId(int petId) {
+    public Pet deletePetBYId(int petId) {
+        Pet pet = findPetById(petId);
         this.petRepository.deleteById(petId);
+        return pet;
     }
 
     @Override

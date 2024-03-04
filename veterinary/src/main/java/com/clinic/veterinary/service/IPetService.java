@@ -12,7 +12,7 @@ public interface IPetService {
 
     List<Pet> findAllPets();
 
-    void deletePetBYId(int petId);
+    Pet deletePetBYId(int petId);
 
     void updatePet(Pet pet);
 

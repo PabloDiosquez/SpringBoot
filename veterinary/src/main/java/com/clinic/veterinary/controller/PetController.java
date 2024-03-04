@@ -33,9 +33,9 @@ public class PetController {
     }
 
     @DeleteMapping(path="/delete")
-    public String deletePetById(@RequestParam int petId){
-        this.petService.deletePetBYId(petId);
-        return "Success";
+    @ResponseBody
+    public Pet deletePetById(@RequestParam int petId){
+        return this.petService.deletePetBYId(petId);
     }
 
     @PutMapping(path="/update")
