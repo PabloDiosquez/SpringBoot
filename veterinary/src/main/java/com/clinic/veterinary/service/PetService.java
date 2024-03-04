@@ -1,5 +1,6 @@
 package com.clinic.veterinary.service;
 
+import com.clinic.veterinary.dto.PetDTO;
 import com.clinic.veterinary.model.Pet;
 import com.clinic.veterinary.repository.IPetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,11 @@ public class PetService implements IPetService{
             }
         }
         return pets;
+    }
+
+    @Override
+    public PetDTO getPetData(int petId) {
+        Pet pet = findPetById(petId);
+        return new PetDTO(pet, pet.getOwner());
     }
 }

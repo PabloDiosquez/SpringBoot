@@ -1,5 +1,6 @@
 package com.clinic.veterinary.controller;
 
+import com.clinic.veterinary.dto.PetDTO;
 import com.clinic.veterinary.model.Pet;
 import com.clinic.veterinary.service.IPetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,12 @@ public class PetController {
     public List<Pet> findAllPets(@RequestParam String specie,
                                  @RequestParam String breed){
         return this.petService.findAllPets(specie, breed);
+    }
+
+    @GetMapping(path="/get-pet-data")
+    @ResponseBody
+    public PetDTO getPetData(@RequestParam int petId){
+        return this.petService.getPetData(petId);
     }
 
 }
