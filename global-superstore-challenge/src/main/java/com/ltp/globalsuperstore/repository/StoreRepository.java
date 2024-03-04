@@ -1,7 +1,6 @@
 package com.ltp.globalsuperstore.repository;
 
-import com.ltp.globalsuperstore.Item;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.ltp.globalsuperstore.model.Item;
 
 import java.util.ArrayList;
 import java.util.List;
