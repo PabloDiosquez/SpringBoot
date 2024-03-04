@@ -44,4 +44,11 @@ public class PetController {
         return findPetById(pet.getPetId());
     }
 
+    @GetMapping(path="/find-all")
+    @ResponseBody
+    public List<Pet> findAllPets(@RequestParam String specie,
+                                 @RequestParam String breed){
+        return this.petService.findAllPets(specie, breed);
+    }
+
 }

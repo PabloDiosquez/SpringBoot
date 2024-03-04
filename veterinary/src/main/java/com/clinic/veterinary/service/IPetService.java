@@ -14,4 +14,6 @@ public interface IPetService {
     void deletePetBYId(int petId);
 
     void updatePet(Pet pet);
+
+    List<Pet> findAllPets(String specie, String breed);
 }

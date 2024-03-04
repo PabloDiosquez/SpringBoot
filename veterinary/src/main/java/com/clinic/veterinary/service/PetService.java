@@ -5,6 +5,7 @@ import com.clinic.veterinary.repository.IPetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,5 +36,16 @@ public class PetService implements IPetService{
     @Override
     public void updatePet(Pet pet) {
         this.petRepository.save(pet);
+    }
+
+    @Override
+    public List<Pet> findAllPets(String specie, String breed) {
+        List<Pet> pets = new ArrayList<>();
+        for (Pet pet: findAllPets()) {
+            if(pet.getSpecie().equals(specie) && pet.getBreed().equals(breed)){
+                pets.add(pet);
+            }
+        }
+        return pets;
     }
 }
