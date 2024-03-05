@@ -1,4 +1,7 @@
 package com.ecommerce.store.service;
 
-public class SaleService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class SaleService implements ISaleService{
 }

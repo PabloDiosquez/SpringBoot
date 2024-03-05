@@ -1,4 +1,7 @@
 package com.ecommerce.store.service;
 
-public class ClientService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class ClientService implements IClientService{
 }
