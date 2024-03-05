@@ -39,7 +39,7 @@ public class GradeServiceTest {
     @Test
     public void gradeIndexTest(){
         Grade grade = new Grade("Harry", "Potions", "C-");
-        when(gradeRepository.getGrades()).thenReturn(Arrays.asList(grade));
+        when(gradeRepository.getGrades()).thenReturn(List.of(grade));
         when(gradeRepository.getGrade(0)).thenReturn(grade);
 
         int valid = gradeService.getGradeIndex(grade.getId());
@@ -47,5 +47,17 @@ public class GradeServiceTest {
 
         assertEquals(0, valid);
         assertEquals(Constants.NOT_FOUND, notFound);
+    }
+
+    @Test
+    public void returnGradeByIdTest(){
+        Grade grade = new Grade("Harry", "Potions", "C-");
+        when(gradeRepository.getGrades()).thenReturn(List.of(grade));
+        when(gradeRepository.getGrade(0)).thenReturn(grade);
+
+        String id = grade.getId();
+        Grade res = gradeService.getGradeById(id);
+
+        assertEquals(grade, res);
     }
 }
