@@ -19,7 +19,7 @@ public class StoreService {
     }
 
     public void addItem(Item item) {
-        storeRepository.addItem(item);;
+        storeRepository.addItem(item);
     }
 
     public void updateItem(Item item, int index) {
