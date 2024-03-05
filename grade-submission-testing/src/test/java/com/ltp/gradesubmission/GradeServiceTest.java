@@ -35,4 +35,17 @@ public class GradeServiceTest {
         assertEquals("Harry", result.get(0).getName());
         assertEquals("Arithmancy", result.get(1).getSubject());
     }
+
+    @Test
+    public void gradeIndexTest(){
+        Grade grade = new Grade("Harry", "Potions", "C-");
+        when(gradeRepository.getGrades()).thenReturn(Arrays.asList(grade));
+        when(gradeRepository.getGrade(0)).thenReturn(grade);
+
+        int valid = gradeService.getGradeIndex(grade.getId());
+        int notFound = gradeService.getGradeIndex("123");
+
+        assertEquals(0, valid);
+        assertEquals(Constants.NOT_FOUND, notFound);
+    }
 }
