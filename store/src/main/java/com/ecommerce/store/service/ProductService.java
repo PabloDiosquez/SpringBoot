@@ -26,4 +26,11 @@ public class ProductService implements IProductService{
     public List<Product> findAllProducts() {
         return this.productRepository.findAll();
     }
+
+    @Override
+    public Product deleteProductById(int productId) {
+        Product product = this.findProductById(productId);
+        this.productRepository.deleteById(productId);
+        return product;
+    }
 }

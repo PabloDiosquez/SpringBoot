@@ -31,4 +31,10 @@ public class ProductController {
     public List<Product> findAllProducts(){
         return this.productService.findAllProducts();
     }
+
+    @DeleteMapping(path="/delete")
+    @ResponseBody
+    public Product deleteProductById(@RequestParam int productId){
+        return this.productService.deleteProductById(productId);
+    }
 }
