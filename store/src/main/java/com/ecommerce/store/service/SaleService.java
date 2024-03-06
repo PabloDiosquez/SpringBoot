@@ -45,4 +45,13 @@ public class SaleService implements ISaleService{
     public List<Product> getAllProducts(int saleId) {
         return this.findSaleById(saleId).getProducts();
     }
+
+    @Override
+    public String getSaleInfo() {
+        double total = 0;
+        for (Sale sale: this.findAllSales()) {
+            total += sale.getTotal();
+        }
+        return String.format("[Total sales amount: %.2f, Number of sales: %d]", total, this.findAllSales().size());
+    }
 }

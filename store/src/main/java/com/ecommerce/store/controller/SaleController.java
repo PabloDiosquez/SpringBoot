@@ -49,4 +49,9 @@ public class SaleController {
     public List<Product> getAllProducts(@RequestParam int saleId){
         return this.saleService.getAllProducts(saleId);
     }
+
+    @GetMapping(path="/sale-info")
+    public String getSaleInfo(){
+        return this.saleService.getSaleInfo();
+    }
 }

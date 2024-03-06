@@ -17,4 +17,6 @@ public interface ISaleService {
     Sale updateSale(Sale sale);
 
     List<Product> getAllProducts(int saleId);
+
+    String getSaleInfo();
 }
