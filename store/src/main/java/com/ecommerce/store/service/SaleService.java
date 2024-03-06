@@ -14,4 +14,9 @@ public class SaleService implements ISaleService{
     public void saveSale(Sale sale) {
         this.saleRepository.save(sale);
     }
+
+    @Override
+    public Sale findSaleById(int saleId) {
+        return this.saleRepository.findById(saleId).orElse(null);
+    }
 }
