@@ -81,6 +81,7 @@ public class GradeServiceTest {
         when(gradeRepository.getGrades()).thenReturn(List.of(grade));
         when(gradeRepository.getGrade(0)).thenReturn(grade);
 
+        grade.setScore("A+");
         gradeService.submitGrade(grade);
         verify(gradeRepository, times(1)).updateGrade(grade, 0);
     }
