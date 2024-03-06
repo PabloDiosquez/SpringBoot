@@ -1,5 +1,6 @@
 package com.ecommerce.store.service;
 
+import com.ecommerce.store.dto.SaleDTO;
 import com.ecommerce.store.model.Product;
 import com.ecommerce.store.model.Sale;
 
@@ -10,7 +11,7 @@ public interface ISaleService {
 
     Sale findSaleById(int saleId);
 
-    List<Sale> findAllSales();
+    List<Sale> getAllSales();
 
     Sale deleteSaleById(int saleId);
 
@@ -19,4 +20,6 @@ public interface ISaleService {
     List<Product> getAllProducts(int saleId);
 
     String getSaleInfo();
+
+    SaleDTO findMaxSale();
 }

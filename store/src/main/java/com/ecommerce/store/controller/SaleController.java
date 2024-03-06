@@ -1,5 +1,6 @@
 package com.ecommerce.store.controller;
 
+import com.ecommerce.store.dto.SaleDTO;
 import com.ecommerce.store.model.Product;
 import com.ecommerce.store.model.Sale;
 import com.ecommerce.store.service.ISaleService;
@@ -27,8 +28,8 @@ public class SaleController {
 
     @GetMapping(path="/find-all")
     @ResponseBody
-    public List<Sale> findAllSales(){
-        return this.saleService.findAllSales();
+    public List<Sale> getAllSales(){
+        return this.saleService.getAllSales();
     }
 
     @DeleteMapping(path="/delete")
@@ -53,5 +54,11 @@ public class SaleController {
     @GetMapping(path="/sale-info")
     public String getSaleInfo(){
         return this.saleService.getSaleInfo();
+    }
+
+    @GetMapping(path="/max-sale")
+    @ResponseBody
+    public SaleDTO findMaxSale(){
+        return this.saleService.findMaxSale();
     }
 }

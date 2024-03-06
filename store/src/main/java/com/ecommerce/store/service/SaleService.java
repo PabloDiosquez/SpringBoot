@@ -1,5 +1,6 @@
 package com.ecommerce.store.service;
 
+import com.ecommerce.store.dto.SaleDTO;
 import com.ecommerce.store.model.Product;
 import com.ecommerce.store.model.Sale;
 import com.ecommerce.store.repository.ISaleRepository;
@@ -24,7 +25,7 @@ public class SaleService implements ISaleService{
     }
 
     @Override
-    public List<Sale> findAllSales() {
+    public List<Sale> getAllSales() {
         return this.saleRepository.findAll();
     }
 
@@ -49,9 +50,25 @@ public class SaleService implements ISaleService{
     @Override
     public String getSaleInfo() {
         double total = 0;
-        for (Sale sale: this.findAllSales()) {
+        for (Sale sale: this.getAllSales()) {
             total += sale.getTotal();
         }
-        return String.format("[Total sales amount: %.2f, Number of sales: %d]", total, this.findAllSales().size());
+        return String.format("[Total sales amount: %.2f, Number of sales: %d]", total, this.getAllSales().size());
+    }
+
+    @Override
+    public SaleDTO findMaxSale() {
+        Sale maxSale = this.maxSale();
+        return new SaleDTO(maxSale, maxSale.getClient());
+    }
+
+    public Sale maxSale(){
+        List<Sale> sales = this.getAllSales();
+        if(sales.isEmpty()) return null;
+        Sale maxSale = sales.get(0);
+        for (Sale sale: sales) {
+            if(sale.getTotal() > maxSale.getTotal()) maxSale = sale;
+        }
+        return maxSale;
     }
 }
