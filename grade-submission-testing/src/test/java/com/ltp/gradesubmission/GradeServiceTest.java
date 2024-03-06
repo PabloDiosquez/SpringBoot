@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GradeServiceTest {
@@ -25,6 +25,8 @@ public class GradeServiceTest {
 
     @Test
     public void getGradesFromRepoTest(){
+        // when the service calls gradeRepository.getGrades(), then it
+        // should return a List of grades.
         when(gradeRepository.getGrades()).thenReturn(Arrays.asList(
             new Grade("Harry", "Potions", "C-"),
             new Grade("Hermione", "Arithmancy", "A+")
@@ -33,6 +35,7 @@ public class GradeServiceTest {
         List<Grade> result = gradeService.getGrades();
 
         assertEquals("Harry", result.get(0).getName());
+        assertEquals("Hermione", result.get(1).getName());
         assertEquals("Arithmancy", result.get(1).getSubject());
     }
 
@@ -50,7 +53,7 @@ public class GradeServiceTest {
     }
 
     @Test
-    public void returnGradeByIdTest(){
+    public void getGradeByIdTest(){
         Grade grade = new Grade("Harry", "Potions", "C-");
         when(gradeRepository.getGrades()).thenReturn(List.of(grade));
         when(gradeRepository.getGrade(0)).thenReturn(grade);
@@ -59,5 +62,26 @@ public class GradeServiceTest {
         Grade res = gradeService.getGradeById(id);
 
         assertEquals(grade, res);
+    }
+
+    @Test
+    public void addGradeTest(){
+        Grade grade = new Grade("Harry", "Potions", "C-");
+        when(gradeRepository.getGrades()).thenReturn(List.of(grade));
+        when(gradeRepository.getGrade(0)).thenReturn(grade);
+
+        Grade newGrade = new Grade();
+        gradeService.submitGrade(newGrade);
+        verify(gradeRepository, times(1)).addGrade(newGrade);
+    }
+
+    @Test
+    public void updateGradeTest(){
+        Grade grade = new Grade("Harry", "Potions", "C-");
+        when(gradeRepository.getGrades()).thenReturn(List.of(grade));
+        when(gradeRepository.getGrade(0)).thenReturn(grade);
+
+        gradeService.submitGrade(grade);
+        verify(gradeRepository, times(1)).updateGrade(grade, 0);
     }
 }
