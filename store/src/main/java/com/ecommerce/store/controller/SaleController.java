@@ -1,5 +1,6 @@
 package com.ecommerce.store.controller;
 
+import com.ecommerce.store.model.Product;
 import com.ecommerce.store.model.Sale;
 import com.ecommerce.store.service.ISaleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,13 @@ public class SaleController {
     @PutMapping(path="/update")
     @ResponseBody
     public Sale updateSale(@RequestBody Sale sale){
+
         return this.saleService.updateSale(sale);
+    }
+
+    @GetMapping(path="/products")
+    @ResponseBody
+    public List<Product> getAllProducts(@RequestParam int saleId){
+        return this.saleService.getAllProducts(saleId);
     }
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.store.service;
 
+import com.ecommerce.store.model.Product;
 import com.ecommerce.store.model.Sale;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ISaleService {
     Sale deleteSaleById(int saleId);
 
     Sale updateSale(Sale sale);
+
+    List<Product> getAllProducts(int saleId);
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.store.service;
 
+import com.ecommerce.store.model.Product;
 import com.ecommerce.store.model.Sale;
 import com.ecommerce.store.repository.ISaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class SaleService implements ISaleService{
     public Sale updateSale(Sale sale) {
         this.saleRepository.save(sale);
         return this.findSaleById(sale.getSaleId());
+    }
+
+    @Override
+    public List<Product> getAllProducts(int saleId) {
+        return this.findSaleById(saleId).getProducts();
     }
 }
