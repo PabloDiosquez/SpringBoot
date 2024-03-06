@@ -4,6 +4,7 @@ import com.ecommerce.store.model.Sale;
 import com.ecommerce.store.service.ISaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping(path="/api/sales")
@@ -21,5 +22,23 @@ public class SaleController {
     @ResponseBody
     public Sale findSaleById(@RequestParam int saleId){
         return this.saleService.findSaleById(saleId);
+    }
+
+    @GetMapping(path="/find-all")
+    @ResponseBody
+    public List<Sale> findAllSales(){
+        return this.saleService.findAllSales();
+    }
+
+    @DeleteMapping(path="/delete")
+    @ResponseBody
+    public Sale deleteSaleById(@RequestParam int saleId){
+        return this.saleService.deleteSaleById(saleId);
+    }
+
+    @PutMapping(path="/update")
+    @ResponseBody
+    public Sale updateSale(@RequestBody Sale sale){
+        return this.saleService.updateSale(sale);
     }
 }

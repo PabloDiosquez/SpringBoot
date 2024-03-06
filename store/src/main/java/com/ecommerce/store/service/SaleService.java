@@ -5,6 +5,8 @@ import com.ecommerce.store.repository.ISaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SaleService implements ISaleService{
     @Autowired
@@ -18,5 +20,23 @@ public class SaleService implements ISaleService{
     @Override
     public Sale findSaleById(int saleId) {
         return this.saleRepository.findById(saleId).orElse(null);
+    }
+
+    @Override
+    public List<Sale> findAllSales() {
+        return this.saleRepository.findAll();
+    }
+
+    @Override
+    public Sale deleteSaleById(int saleId) {
+        Sale sale = this.findSaleById(saleId);
+        this.saleRepository.deleteById(saleId);
+        return sale;
+    }
+
+    @Override
+    public Sale updateSale(Sale sale) {
+        this.saleRepository.save(sale);
+        return this.findSaleById(sale.getSaleId());
     }
 }
