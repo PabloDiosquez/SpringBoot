@@ -14,4 +14,6 @@ public interface IProductService {
     Product deleteProductById(int productId);
 
     Product updateProduct(Product product);
+
+    List<Product> outOfStock();
 }

@@ -41,6 +41,13 @@ public class ProductController {
     @PutMapping(path="/update")
     @ResponseBody
     public Product updateProduct(@RequestBody Product product){
+
         return this.productService.updateProduct(product);
+    }
+
+    @GetMapping(path="/out-of-stock")
+    @ResponseBody
+    public List<Product> outOfStock(){
+        return this.productService.outOfStock();
     }
 }
