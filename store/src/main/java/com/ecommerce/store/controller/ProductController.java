@@ -15,7 +15,7 @@ public class ProductController {
     private IProductService productService;
 
     @PostMapping(path="/save")
-    public String saveProduct(@RequestParam Product product){
+    public String saveProduct(@RequestBody Product product){
         this.productService.saveProduct(product);
         return "Success";
     }
@@ -36,5 +36,11 @@ public class ProductController {
     @ResponseBody
     public Product deleteProductById(@RequestParam int productId){
         return this.productService.deleteProductById(productId);
+    }
+
+    @PutMapping(path="/update")
+    @ResponseBody
+    public Product updateProduct(@RequestBody Product product){
+        return this.productService.updateProduct(product);
     }
 }

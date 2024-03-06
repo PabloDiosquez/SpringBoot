@@ -33,4 +33,10 @@ public class ProductService implements IProductService{
         this.productRepository.deleteById(productId);
         return product;
     }
+
+    @Override
+    public Product updateProduct(Product product) {
+        this.productRepository.save(product);
+        return findProductById(product.getProductId());
+    }
 }
