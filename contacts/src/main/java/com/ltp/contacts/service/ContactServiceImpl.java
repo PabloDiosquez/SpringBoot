@@ -14,17 +14,25 @@ public class ContactServiceImpl implements ContactService {
 
     @Autowired
     private ContactRepository contactRepository;
-
-
-    private int findIndexById(String id) {
-        return IntStream.range(0, contactRepository.getContacts().size())
-            .filter(index -> contactRepository.getContacts().get(index).getId().equals(id))
-            .findFirst()
-            .orElseThrow();
-    }
-
     @Override
     public Contact getContactById(String contactId) {
         return contactRepository.getContact(findIndexById(contactId));
+    }
+
+    @Override
+    public void saveContact(Contact contact) {
+        contactRepository.saveContact(contact);
+    }
+
+    @Override
+    public void updateContact(String contactId, Contact contact) {
+        contactRepository.updateContact(findIndexById(contactId), contact);
+    }
+
+    private int findIndexById(String id) {
+        return IntStream.range(0, contactRepository.getContacts().size())
+                .filter(index -> contactRepository.getContacts().get(index).getId().equals(id))
+                .findFirst()
+                .orElseThrow();
     }
 }
