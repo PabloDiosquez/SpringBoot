@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ApplicationExceptionHandler {
 
     @ExceptionHandler(ContactNotFoundException.class)
-    public ResponseEntity<Object> handleContactNotFoundException(){
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> handleContactNotFoundException(ErrorResponse errorResponse){
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }
