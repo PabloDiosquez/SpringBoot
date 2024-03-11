@@ -18,8 +18,13 @@ public class GradeController {
     }
 
     @PostMapping(path="/student/{studentId}/course/{courseId}")
-    public ResponseEntity<Grade> saveGrade(@PathVariable Long studentId, @PathVariable Long courseId, @RequestBody Grade grade){
+    public ResponseEntity<Grade> saveGrade(@RequestBody Grade grade, @PathVariable Long studentId, @PathVariable Long courseId){
         return new ResponseEntity<>(grade, HttpStatus.CREATED);
+    }
+
+    @PutMapping(path="/student/{studentId}/course/{courseId}")
+    public ResponseEntity<Grade> updateGrade(@RequestBody Grade grade, @PathVariable Long studentId, @PathVariable Long courseId){
+        return new ResponseEntity<>(grade, HttpStatus.OK);
     }
 
     @DeleteMapping(path="/student/{studentId}/course/{courseId}")
