@@ -16,22 +16,22 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping(path="/student/{studentId}")
+    @GetMapping(path="/{studentId}")
     public ResponseEntity<Student> getStudent(@PathVariable Long studentId){
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(path="/student")
-    public ResponseEntity<Student> saveStudent(@RequestParam Student student){
+    @PostMapping
+    public ResponseEntity<Student> saveStudent(@RequestBody Student student){
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path="/student/{studentId}")
+    @DeleteMapping(path="/{studentId}")
     public ResponseEntity<HttpStatus> deleteStudent(@PathVariable Long studentId){
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(path="/student/all")
+    @GetMapping(path="/all")
     public ResponseEntity<List<Student>> getStudents(){
         return new ResponseEntity<>(HttpStatus.OK);
     }
