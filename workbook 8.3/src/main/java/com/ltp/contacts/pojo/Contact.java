@@ -1,5 +1,4 @@
 package com.ltp.contacts.pojo;
-
 import java.util.UUID;
 
 public class Contact {
