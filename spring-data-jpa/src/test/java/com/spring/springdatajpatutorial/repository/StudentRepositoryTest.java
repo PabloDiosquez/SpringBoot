@@ -62,4 +62,11 @@ class StudentRepositoryTest {
 
         System.out.println(studentList);
     }
+    @Test
+    public void printStudentsByLastNameContaining(){
+        List<Student> studentList =
+                studentRepository.findByLastnameContaining("C");
+
+        System.out.println(studentList);
+    }
 }
