@@ -35,7 +35,6 @@ public class Student {
             nullable = false
     )
     private String email;
-    private String GuardianName;
-    private String GuardianEmail;
-    private String GuardianMobile;
+    @Embedded
+    private Guardian guardian;
 }

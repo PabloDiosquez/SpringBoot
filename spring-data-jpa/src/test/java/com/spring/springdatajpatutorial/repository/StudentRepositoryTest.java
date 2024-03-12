@@ -1,5 +1,6 @@
 package com.spring.springdatajpatutorial.repository;
 
+import com.spring.springdatajpatutorial.entity.Guardian;
 import com.spring.springdatajpatutorial.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,27 @@ class StudentRepositoryTest {
                 .email("johnconnor@gmail.com")
                 .firstname("John")
                 .lastname("Connor")
-                .GuardianName("Sarah Connor")
-                .GuardianEmail("sarahconnor@gmail.com")
-                .GuardianMobile("555-111-9012")
+                //.GuardianName("Sarah Connor")
+                //.GuardianEmail("sarahconnor@gmail.com")
+                //.GuardianMobile("555-111-9012")
+                .build();
+
+        studentRepository.save(student);
+    }
+
+    @Test
+    public void saveStudentWithGuardian(){
+        Guardian guardian = Guardian.builder()
+                .name("Cormac O'Connor")
+                .email("cormac1782@gmail.com")
+                .mobile("555-111-9098")
+                .build();
+
+        Student student = Student.builder()
+                .email("johnwick1990@gmail.com")
+                .firstname("John")
+                .lastname("Wick")
+                .guardian(guardian)
                 .build();
 
         studentRepository.save(student);
