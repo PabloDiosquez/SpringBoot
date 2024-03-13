@@ -52,7 +52,7 @@ class StudentRepositoryTest {
     public void printAllStudent(){
         List<Student> studentList = studentRepository.findAll();
 
-        System.out.println(studentList);
+        System.out.println("studentList = " + studentList);
     }
 
     @Test
@@ -60,7 +60,7 @@ class StudentRepositoryTest {
         List<Student> studentList =
                 studentRepository.findByFirstname("John");
 
-        System.out.println(studentList);
+        System.out.println("studentList = " + studentList);
     }
 
     @Test
@@ -68,7 +68,7 @@ class StudentRepositoryTest {
         List<Student> studentList =
                 studentRepository.findByLastname("Wick");
 
-        System.out.println(studentList);
+        System.out.println("studentList = " + studentList);
     }
 
     @Test
@@ -76,13 +76,21 @@ class StudentRepositoryTest {
         List<Student> studentList =
                 studentRepository.findByGuardianName("Sarah Connor");
 
-        System.out.println(studentList);
+        System.out.println("studentList = " + studentList);
     }
     @Test
     public void printStudentsByLastNameContaining(){
         List<Student> studentList =
                 studentRepository.findByLastnameContaining("C");
 
-        System.out.println(studentList);
+        System.out.println("studentList = " + studentList);
+    }
+
+    @Test
+    public void printStudentByEmailAddress(){
+        Student student =
+                studentRepository.getStudentByEmailAddress("johnconnor@gmail.com");
+
+        System.out.println("student = " + student);
     }
 }
