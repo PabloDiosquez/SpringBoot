@@ -1,9 +1,11 @@
 package com.spring.springdatajpatutorial.repository;
 
 import com.spring.springdatajpatutorial.entity.Student;
-import org.springframework.data.domain.Example;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -25,4 +27,21 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             nativeQuery = true
     )
     Student getStudentByEmailAddressNative(String emailAddress);
+
+    @Query(
+            value = "SELECT * FROM tbl_student s where s.email_address = :email",
+            nativeQuery = true
+    )
+    Student getStudentByEmailAddressNativeNamedParam(@Param("email") String email);
+
+    @Modifying
+    @Transactional
+    @Query(
+            value = "UPDATE tbl_student SET firstname = ?1 WHERE email_address = ?2",
+            nativeQuery = true
+    )
+    void updateStudentFirstnameByEmail(String firstname, String email);
+
+
+
 }
