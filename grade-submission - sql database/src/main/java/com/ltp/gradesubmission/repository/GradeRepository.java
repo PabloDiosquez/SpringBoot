@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 
 import com.ltp.gradesubmission.entity.Grade;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface GradeRepository extends CrudRepository<Grade, Long> {
      Optional<Grade> findByStudentIdAndCourseId(Long studentId, Long courseId);
      List<Grade> findByStudentId(Long studentId);

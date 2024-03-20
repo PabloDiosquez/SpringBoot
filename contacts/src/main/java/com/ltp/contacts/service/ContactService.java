@@ -14,6 +14,5 @@ public interface ContactService {
 
     void deleteContact(String contactId);
 
-
     List<Contact> getContacts();
 }
