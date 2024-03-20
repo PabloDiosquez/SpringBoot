@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class HotelService implements IHotelService{
-    private List<Hotel> hotels = new ArrayList<>();
+    private final List<Hotel> hotels = new ArrayList<>();
     @Override
     public List<Hotel> getHotelsByCityId(int cityId) {
         loadHotels();
