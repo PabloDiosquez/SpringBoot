@@ -5,6 +5,7 @@ import com.example.citiesservice.dto.HotelDTO;
 import com.example.citiesservice.model.City;
 import com.example.citiesservice.repository.ICityAPIClient;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class CityService implements ICityService{
 
     @Override
     @CircuitBreaker(name = "hotels-service", fallbackMethod = "fallbackGetCitiesHotels")
+    @Retry(name = "hotels-service")
     public CityDTO getCitiesHotels(String name, String country) throws Exception {
         City city = getCityByNameAndCountry(name, country);
         assert city != null;
