@@ -4,6 +4,7 @@ import com.example.citiesservice.dto.CityDTO;
 import com.example.citiesservice.dto.HotelDTO;
 import com.example.citiesservice.model.City;
 import com.example.citiesservice.repository.ICityAPIClient;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,12 @@ public class CityService implements ICityService{
     private final List<City> cities = new ArrayList<>();
 
     @Override
-    public CityDTO getCitiesHotels(String name, String country) {
+    @CircuitBreaker(name = "hotels-service", fallbackMethod = "fallbackGetCitiesHotels")
+    public CityDTO getCitiesHotels(String name, String country) throws Exception {
         City city = getCityByNameAndCountry(name, country);
         assert city != null;
         List<HotelDTO> hotels = cityAPIClient.getHotelsByCityId(city.getCityId());
+        createException();
         return new CityDTO(city, hotels);
     }
 
@@ -33,6 +36,19 @@ public class CityService implements ICityService{
             }
         }
         return null;
+    }
+
+    public CityDTO fallbackGetCitiesHotels(Throwable throwable) {
+        final int ERROR_ID = -1;
+        final String ERROR_NAME = "Error";
+        final String ERROR_STATE = "Error";
+        final String ERROR_COUNTRY = "Error";
+        final String ERROR_CONTINENT = "Error";
+        final List<HotelDTO> ERROR_HOTELS = null;
+
+        String errorMessage = throwable.getMessage();
+        System.out.println("errorMessage = " + errorMessage);
+        return new CityDTO(ERROR_ID, ERROR_NAME, ERROR_STATE, ERROR_COUNTRY, ERROR_CONTINENT, ERROR_HOTELS);
     }
 
     private void createException() throws Exception {

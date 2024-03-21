@@ -15,7 +15,7 @@ public class CityController {
     private ICityService cityService;
 
     @GetMapping(path = "/hotels/")
-    public CityDTO getCityAndHotels(@RequestParam String cityName, @RequestParam String country){
+    public CityDTO getCityAndHotels(@RequestParam String cityName, @RequestParam String country) throws Exception {
         return cityService.getCitiesHotels(cityName, country);
     }
 }
