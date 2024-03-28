@@ -20,8 +20,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student saveStudent(Student student) {
         assert student != null;
-        studentRepository.save(student);
-        return student;
+        return studentRepository.save(student);
     }
 
     @Override
