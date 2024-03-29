@@ -1,14 +1,11 @@
 package com.ltp.gradesubmission.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter @Setter
 @Entity
 @Table(name = "course")
@@ -18,12 +15,15 @@ public class Course {
     @Column(name = "ID")
     private Long id;
 
+    @NonNull
     @Column(name = "subject", nullable = false)
     private String subject;
 
+    @NonNull
     @Column(name = "code", nullable = false)
     private String code;
 
+    @NonNull
     @Column(name = "description", nullable = false)
     private String description;
 
