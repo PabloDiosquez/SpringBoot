@@ -3,8 +3,12 @@ package com.ltp.gradesubmission.service;
 import java.util.List;
 
 import com.ltp.gradesubmission.entity.Grade;
+import com.ltp.gradesubmission.repository.GradeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class GradeServiceImpl implements GradeService {
+    @Autowired
+    private GradeRepository gradeRepository;
     
     @Override
     public Grade getGrade(Long studentId, Long courseId) {
@@ -13,7 +17,7 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
-        return null;
+        return gradeRepository.save(grade);
     }
 
     @Override
