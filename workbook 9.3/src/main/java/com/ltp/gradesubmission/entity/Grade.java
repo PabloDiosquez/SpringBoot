@@ -21,4 +21,8 @@ public class Grade {
     @Column(name = "score", nullable = false)
     private String score;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "student_ID", referencedColumnName = "id")
+    private Student student;
+
 }

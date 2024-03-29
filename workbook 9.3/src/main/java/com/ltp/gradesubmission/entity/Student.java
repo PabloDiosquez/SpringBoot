@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
@@ -24,5 +26,8 @@ public class Student {
     @Temporal(TemporalType.DATE)
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
+
+    @OneToMany
+    private List<Grade> grades;
 
 }
