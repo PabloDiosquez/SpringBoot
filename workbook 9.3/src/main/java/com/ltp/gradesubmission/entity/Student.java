@@ -28,7 +28,7 @@ public class Student {
     private LocalDate birthDate;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Grade> grades;
 
 }

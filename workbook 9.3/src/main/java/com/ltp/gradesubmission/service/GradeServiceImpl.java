@@ -7,13 +7,14 @@ import com.ltp.gradesubmission.entity.Grade;
 import com.ltp.gradesubmission.entity.Student;
 import com.ltp.gradesubmission.repository.GradeRepository;
 import com.ltp.gradesubmission.repository.StudentRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
+@AllArgsConstructor
+@Service
 public class GradeServiceImpl implements GradeService {
-    @Autowired
-    private GradeRepository gradeRepository;
 
-    @Autowired
+    private GradeRepository gradeRepository;
     private StudentRepository studentRepository;
     
     @Override
