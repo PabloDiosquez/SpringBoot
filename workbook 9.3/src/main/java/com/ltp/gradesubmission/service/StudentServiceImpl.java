@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ltp.gradesubmission.entity.Student;
+import com.ltp.gradesubmission.exception.StudentNotFoundException;
 import com.ltp.gradesubmission.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudent(Long id) {
-        return studentRepository.findById(id).orElse(null);
+        Optional<Student> student = studentRepository.findById(id);
+        if(student.isPresent()){
+            return student.get();
+        }
+        throw new StudentNotFoundException(id);
     }
 
     @Override

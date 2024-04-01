@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.ltp.gradesubmission.entity.Course;
 import com.ltp.gradesubmission.entity.Grade;
 import com.ltp.gradesubmission.entity.Student;
+import com.ltp.gradesubmission.exception.GradeNotFoundException;
 import com.ltp.gradesubmission.repository.CourseRepository;
 import com.ltp.gradesubmission.repository.GradeRepository;
 import com.ltp.gradesubmission.repository.StudentRepository;
@@ -22,8 +23,11 @@ public class GradeServiceImpl implements GradeService {
     
     @Override
     public Grade getGrade(Long studentId, Long courseId) {
-
-        return gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+        if(grade.isPresent()){
+            return grade.get();
+        }
+        throw new GradeNotFoundException(studentId, courseId);
     }
 
     @Override
@@ -37,15 +41,18 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public Grade updateGrade(String score, Long studentId, Long courseId) {
-        Grade grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
-        grade.setScore(score);
-        return gradeRepository.save(grade);
+        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+        if(grade.isPresent()){
+            grade.get().setScore(score);
+            return gradeRepository.save(grade.get());
+        }
+        throw new GradeNotFoundException(studentId, courseId);
     }
 
     @Override
     public void deleteGrade(Long studentId, Long courseId) {
-        Grade grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
-        gradeRepository.deleteById(grade.getId());
+        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+        grade.ifPresent(value -> gradeRepository.deleteById(value.getId()));
     }
 
     @Override
