@@ -3,7 +3,10 @@ package com.lpt.contactsspringsecurity.security;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,11 +20,17 @@ public class SecurityConfig {
         private BCryptPasswordEncoder bCryptPasswordEncoder;
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            http.
-                    authorizeRequests().
-                    anyRequest().authenticated().
-                    and().
-                    httpBasic();
+            http
+                    .csrf().disable()
+                    .authorizeRequests()
+                    .dispatcherTypeMatchers(HttpMethod.GET).permitAll()
+                    .dispatcherTypeMatchers(HttpMethod.POST).hasAnyRole("ADMIN", "USER")
+                    .dispatcherTypeMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+                    .anyRequest().authenticated()
+                    .and()
+                    .httpBasic().and()
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // No crear sesiones HTTP
 
             return http.build();
         }
@@ -39,7 +48,7 @@ public class SecurityConfig {
                     .roles("USER")
                     .build();
 
-            return new InMemoryUserDetailsManager(admin);
+            return new InMemoryUserDetailsManager(admin, user);
         }
 
 
