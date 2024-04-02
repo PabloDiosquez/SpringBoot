@@ -13,28 +13,27 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "/contacts")
 public class ContactController {
 
     private ContactService contactService;
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = "/contacts")
     public ResponseEntity<List<Contact>> getContacts(){
         return new ResponseEntity<>(contactService.getContacts(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{contactId}")
+    @GetMapping(path = "/contact/{contactId}")
     public ResponseEntity<Contact> getContact(@PathVariable(name = "contactId") String contactId){
         return new ResponseEntity<>(contactService.getContactById(contactId), HttpStatus.FOUND);
     }
 
-    @PostMapping
+    @PostMapping(path = "/contact")
     public ResponseEntity<HttpStatus> createContact(@Valid @RequestBody Contact contact){
         contactService.saveContact(contact);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "/{contactId}")
+    @DeleteMapping(path = "/contact/{contactId}")
     public ResponseEntity<HttpStatus> deleteContact(@PathVariable(name = "contactId") String contactId){
         contactService.deleteContact(contactId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
