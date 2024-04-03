@@ -33,6 +33,7 @@ public class StudentController {
 
     @GetMapping(path="/all")
     public ResponseEntity<List<Student>> getStudents(){
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
