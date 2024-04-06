@@ -20,11 +20,11 @@ public class Grade {
     @Column(name = "score", nullable = false)
     private String score;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "studentId", referencedColumnName = "id")
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "courseId", referencedColumnName = "id")
     private Course course;
 }

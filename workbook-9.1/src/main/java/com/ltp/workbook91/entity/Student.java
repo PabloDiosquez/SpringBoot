@@ -1,14 +1,12 @@
 package com.ltp.workbook91.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter @Setter
 @Entity
 @Table(name = "student")
@@ -23,4 +21,7 @@ public class Student {
 
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
+
+    @OneToMany(mappedBy = "student")
+    List<Grade> grades;
 }
