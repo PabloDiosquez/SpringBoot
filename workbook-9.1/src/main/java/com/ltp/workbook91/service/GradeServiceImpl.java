@@ -19,7 +19,7 @@ public class GradeServiceImpl implements GradeService{
 
     @Override
     public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
-        return null;
+        return gradeRepository.save(grade);
     }
 
     @Override
