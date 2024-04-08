@@ -1,16 +1,26 @@
 package com.ltp.workbook91.service;
 
+import com.ltp.workbook91.entity.Course;
 import com.ltp.workbook91.entity.Grade;
+import com.ltp.workbook91.entity.Student;
+import com.ltp.workbook91.repository.CourseRepository;
 import com.ltp.workbook91.repository.GradeRepository;
+import com.ltp.workbook91.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class GradeServiceImpl implements GradeService{
 
+    private StudentRepository studentRepository;
+
     private GradeRepository gradeRepository;
+
+    private CourseRepository courseRepository;
     @Override
     public Grade getGrade(Long studentId, Long courseId) {
         return gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
@@ -18,7 +28,14 @@ public class GradeServiceImpl implements GradeService{
 
     @Override
     public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
-        return gradeRepository.save(grade);
+        Optional<Student> student = studentRepository.findById(studentId);
+        Optional<Course> course = courseRepository.findById(courseId);
+        if(student.isPresent() && course.isPresent()){
+            grade.setStudent(student.get());
+            grade.setCourse(course.get());
+            return gradeRepository.save(grade);
+        }
+        return null;
     }
 
     @Override
@@ -45,6 +62,6 @@ public class GradeServiceImpl implements GradeService{
 
     @Override
     public List<Grade> getAllGrades() {
-        return null;
+        return (List<Grade>)gradeRepository.findAll();
     }
 }

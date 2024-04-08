@@ -21,10 +21,10 @@ public class Grade {
     private String score;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "studentId", referencedColumnName = "id")
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "courseId", referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
 }
