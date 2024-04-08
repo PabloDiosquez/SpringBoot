@@ -30,7 +30,7 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
         Student student = studentService.getStudent(studentId);
-        Course course = courseService.getCourse(courseId);
+        Course course   = courseService.getCourse(courseId);
         grade.setStudent(student);
         grade.setCourse(course);
         return gradeRepository.save(grade);
@@ -63,7 +63,7 @@ public class GradeServiceImpl implements GradeService{
         return (List<Grade>)gradeRepository.findAll();
     }
 
-    private static Grade unwrapGrade(Optional<Grade> entity, Long studentId, Long courseId) {
+    static Grade unwrapGrade(Optional<Grade> entity, Long studentId, Long courseId) {
         if (entity.isPresent()) return entity.get();
         else throw new GradeNotFoundException(studentId, courseId);
     }
