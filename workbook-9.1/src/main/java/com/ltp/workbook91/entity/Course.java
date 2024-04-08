@@ -1,5 +1,6 @@
 package com.ltp.workbook91.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,6 +29,7 @@ public class Course {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "course")
+    @JsonIgnore
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Grade> grades;
 }

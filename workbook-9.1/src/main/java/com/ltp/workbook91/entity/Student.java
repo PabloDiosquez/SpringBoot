@@ -1,5 +1,6 @@
 package com.ltp.workbook91.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Student {
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
-    @OneToMany(mappedBy = "student")
+    @JsonIgnore
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Grade> grades;
 }
