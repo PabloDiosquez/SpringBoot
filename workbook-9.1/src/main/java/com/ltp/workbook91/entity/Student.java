@@ -16,12 +16,14 @@ public class Student {
     @Column(name = "id")
     private Long id;
 
+    @NonNull
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NonNull
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "student")
-    List<Grade> grades;
+    private List<Grade> grades;
 }

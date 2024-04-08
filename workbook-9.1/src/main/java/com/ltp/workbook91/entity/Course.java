@@ -1,13 +1,12 @@
 package com.ltp.workbook91.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter @Setter
 @Entity
 @Table(name = "course")
@@ -17,12 +16,18 @@ public class Course {
     @Column(name = "id")
     private Long id;
 
+    @NonNull
     @Column(name = "subject", nullable = false)
     private String subject;
 
+    @NonNull
     @Column(name = "code", nullable = false)
     private String code;
 
+    @NonNull
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "course")
+    private List<Grade> grades;
 }
