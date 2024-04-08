@@ -1,12 +1,20 @@
 package com.ltp.gradesubmission.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.data.annotation.Id;
-
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -17,17 +25,19 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "Subject cannot be blank")
     @NonNull
     @Column(name = "subject", nullable = false)
     private String subject;
 
+    @NotBlank(message = "Course code cannot be blank")
     @NonNull
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
+    @NotBlank(message = "Description cannot be blank")
     @NonNull
     @Column(name = "description", nullable = false)
     private String description;
