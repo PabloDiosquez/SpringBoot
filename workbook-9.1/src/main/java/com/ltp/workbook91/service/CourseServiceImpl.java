@@ -1,11 +1,14 @@
 package com.ltp.workbook91.service;
 
+import com.ltp.gradesubmission.exception.CourseNotFoundException;
 import com.ltp.workbook91.entity.Course;
 import com.ltp.workbook91.repository.CourseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class CourseServiceImpl implements CourseService{
@@ -13,7 +16,11 @@ public class CourseServiceImpl implements CourseService{
     private CourseRepository courseRepository;
     @Override
     public Course getCourse(Long id) {
-        return courseRepository.findById(id).orElse(null);
+        Optional<Course> course = courseRepository.findById(id);
+        if(course.isPresent()){
+            return courseRepository.findById(id).get();
+        }
+        throw new CourseNotFoundException(id);
     }
 
     @Override

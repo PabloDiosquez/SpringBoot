@@ -1,5 +1,6 @@
 package com.ltp.workbook91.service;
 
+import com.ltp.gradesubmission.exception.GradeNotFoundException;
 import com.ltp.workbook91.entity.Course;
 import com.ltp.workbook91.entity.Grade;
 import com.ltp.workbook91.entity.Student;
@@ -23,7 +24,11 @@ public class GradeServiceImpl implements GradeService{
     private CourseRepository courseRepository;
     @Override
     public Grade getGrade(Long studentId, Long courseId) {
-        return gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+        if(grade.isPresent()){
+            return grade.get();
+        }
+        throw new GradeNotFoundException(studentId, courseId);
     }
 
     @Override
@@ -35,14 +40,17 @@ public class GradeServiceImpl implements GradeService{
             grade.setCourse(course.get());
             return gradeRepository.save(grade);
         }
-        return null;
+        throw new GradeNotFoundException(studentId, courseId);
     }
 
     @Override
     public Grade updateGrade(String score, Long studentId, Long courseId) {
-        Grade grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
-        grade.setScore(score);
-        return gradeRepository.save(grade);
+        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
+        if(grade.isPresent()){
+            grade.get().setScore(score);
+            return gradeRepository.save(grade.get());
+        }
+        throw new GradeNotFoundException(studentId, courseId);
     }
     @Override
     public void deleteGrade(Long studentId, Long courseId) {
