@@ -3,8 +3,10 @@ package com.ltp.gradesubmission;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import com.ltp.gradesubmission.exception.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
@@ -16,18 +18,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.ltp.gradesubmission.exception.CourseNotFoundException;
-import com.ltp.gradesubmission.exception.ErrorResponse;
-import com.ltp.gradesubmission.exception.GradeNotFoundException;
-import com.ltp.gradesubmission.exception.StudentNotFoundException;
-
 
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({CourseNotFoundException.class, GradeNotFoundException.class, StudentNotFoundException.class})
+    @ExceptionHandler({CourseNotFoundException.class, GradeNotFoundException.class, StudentNotFoundException.class, StudentNotEnrolledException.class})
     public ResponseEntity<Object> handleResourceNotFoundException(RuntimeException ex) {
-        ErrorResponse error = new ErrorResponse(Arrays.asList(ex.getMessage()));  
+        ErrorResponse error = new ErrorResponse(Collections.singletonList(ex.getMessage()));
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -42,7 +39,6 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         ErrorResponse error = new ErrorResponse(Arrays.asList("Data Integrity Violation: we cannot process your request."));  
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
-
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {

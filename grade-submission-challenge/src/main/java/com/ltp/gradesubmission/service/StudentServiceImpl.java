@@ -2,6 +2,7 @@ package com.ltp.gradesubmission.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -36,14 +37,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudents() {
-        return (List<Student>)studentRepository.findAll();
+    public Set<Student> getStudents() {
+        return (Set<Student>)studentRepository.findAll();
     }
 
     @Override
-    public List<Course> getEnrolledCourses(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+    public Set<Course> getEnrolledCourses(Long id) {
+        return getStudent(id).getCourses();
     }
 
     static Student unwrapStudent(Optional<Student> entity, Long id) {
