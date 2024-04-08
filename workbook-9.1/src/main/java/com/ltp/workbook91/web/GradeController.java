@@ -37,7 +37,7 @@ public class GradeController {
 
     @DeleteMapping(path = "/student/{studentId}/course/{courseId}")
     public ResponseEntity<HttpStatus> deleteStudent(@PathVariable(name = "studentId") Long studentId,
-                                                 @PathVariable(name = "courseId") Long courseId){
+                                                    @PathVariable(name = "courseId") Long courseId){
         gradeService.deleteGrade(studentId, courseId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
