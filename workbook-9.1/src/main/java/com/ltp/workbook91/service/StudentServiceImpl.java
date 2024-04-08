@@ -16,11 +16,7 @@ public class StudentServiceImpl implements StudentService{
     private StudentRepository studentRepository;
     @Override
     public Student getStudent(Long id) {
-        Optional<Student> student = studentRepository.findById(id);
-        if(student.isPresent()){
-            return studentRepository.findById(id).get();
-        }
-        throw new StudentNotFoundException(id);
+        return unwrapStudent(studentRepository.findById(id), id);
     }
     @Override
     public Student saveStudent(Student student) {
@@ -33,5 +29,9 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public List<Student> getStudents() {
         return (List<Student>)studentRepository.findAll();
+    }
+    static Student unwrapStudent(Optional<Student> entity, Long id) {
+        if (entity.isPresent()) return entity.get();
+        else throw new StudentNotFoundException(id);
     }
 }

@@ -17,40 +17,31 @@ import java.util.Optional;
 @Service
 public class GradeServiceImpl implements GradeService{
 
-    private StudentRepository studentRepository;
+    private StudentService studentService;
 
     private GradeRepository gradeRepository;
 
-    private CourseRepository courseRepository;
+    private CourseService courseService;
     @Override
     public Grade getGrade(Long studentId, Long courseId) {
-        Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
-        if(grade.isPresent()){
-            return grade.get();
-        }
-        throw new GradeNotFoundException(studentId, courseId);
+        return unwrapGrade(gradeRepository.findByStudentIdAndCourseId(studentId, courseId), studentId, courseId);
     }
 
     @Override
     public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
-        Optional<Student> student = studentRepository.findById(studentId);
-        Optional<Course> course = courseRepository.findById(courseId);
-        if(student.isPresent() && course.isPresent()){
-            grade.setStudent(student.get());
-            grade.setCourse(course.get());
-            return gradeRepository.save(grade);
-        }
-        throw new GradeNotFoundException(studentId, courseId);
+        Student student = studentService.getStudent(studentId);
+        Course course = courseService.getCourse(courseId);
+        grade.setStudent(student);
+        grade.setCourse(course);
+        return gradeRepository.save(grade);
     }
 
     @Override
     public Grade updateGrade(String score, Long studentId, Long courseId) {
         Optional<Grade> grade = gradeRepository.findByStudentIdAndCourseId(studentId, courseId);
-        if(grade.isPresent()){
-            grade.get().setScore(score);
-            return gradeRepository.save(grade.get());
-        }
-        throw new GradeNotFoundException(studentId, courseId);
+        Grade unwrappedGrade = unwrapGrade(grade, studentId, courseId);
+        unwrappedGrade.setScore(score);
+        return gradeRepository.save(unwrappedGrade);
     }
     @Override
     public void deleteGrade(Long studentId, Long courseId) {
@@ -70,5 +61,10 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public List<Grade> getAllGrades() {
         return (List<Grade>)gradeRepository.findAll();
+    }
+
+    private static Grade unwrapGrade(Optional<Grade> entity, Long studentId, Long courseId) {
+        if (entity.isPresent()) return entity.get();
+        else throw new GradeNotFoundException(studentId, courseId);
     }
 }
