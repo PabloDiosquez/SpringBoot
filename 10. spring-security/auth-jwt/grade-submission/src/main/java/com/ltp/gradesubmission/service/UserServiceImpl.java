@@ -4,6 +4,7 @@ import com.ltp.gradesubmission.entity.User;
 import com.ltp.gradesubmission.exception.EntityNotFoundException;
 import com.ltp.gradesubmission.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public User getUser(Long id) {
         return unwrapUser(userRepository.findById(id), id);
@@ -20,14 +23,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getUser(String username) {
-        if(userRepository.existsByUsername(username)){
-            return userRepository.findByUsername(username).orElse(null);
-        }
-        throw new RuntimeException("The user with username '" + username + "' does not exist in our records.");
+        return unwrapUser(userRepository.findByUsername(username), 404L);
     }
 
     @Override
     public User saveUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
