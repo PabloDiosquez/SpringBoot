@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService{
         return student.getCourses();
     }
 
-    private Student unwrapStudent(Optional<Student> entity, Long id){
+    public static Student unwrapStudent(Optional<Student> entity, Long id){
         if(entity.isPresent()){
             return entity.get();
         }
