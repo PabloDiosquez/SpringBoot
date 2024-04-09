@@ -1,5 +1,6 @@
 package com.ltp.gradesubmission.entity;
 
+import com.ltp.gradesubmission.validation.Score;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,8 @@ public class Grade {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "score")
+    @Score
+    @Column(name = "score", nullable = false)
     private String score;
 
     @ManyToOne(optional = false)
