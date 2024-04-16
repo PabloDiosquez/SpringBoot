@@ -37,6 +37,7 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public Patient updatePatient(Long id, Patient patient) {
         Patient old = getPatient(id);
+        old.setLicenseNumber(patient.getLicenseNumber());
         old.setFirstname(patient.getFirstname());
         old.setLastname(patient.getLastname());
         old.setBirthDate(patient.getBirthDate());
