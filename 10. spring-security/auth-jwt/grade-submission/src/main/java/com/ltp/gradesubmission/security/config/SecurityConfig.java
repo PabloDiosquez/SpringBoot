@@ -8,21 +8,28 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-@AllArgsConstructor
-@Configuration
-public class SecurityConfig {
+import java.security.Security;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public static final String REGISTER_PATH = "/register";
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().disable()
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .dispatcherTypeMatchers(HttpMethod.valueOf("/h2/**")).permitAll()
+                .dispatcherTypeMatchers("/h2/**", REGISTER_PATH).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.build();
     }
 }
