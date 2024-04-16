@@ -32,7 +32,7 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public Patient updatePatient(Patient patient) {
+    public Patient updatePatient(Long id, Patient patient) {
         return null;
     }
 }
