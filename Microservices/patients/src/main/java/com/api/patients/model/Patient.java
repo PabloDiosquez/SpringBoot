@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
@@ -27,7 +27,7 @@ public class Patient {
 
     @Column(name = "date_of_birth", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "telephone_number")
     private String telephone;
