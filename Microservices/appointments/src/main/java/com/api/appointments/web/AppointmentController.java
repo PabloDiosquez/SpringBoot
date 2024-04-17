@@ -1,5 +1,6 @@
 package com.api.appointments.web;
 
+import com.api.appointments.dto.AppointmentDTO;
 import com.api.appointments.model.Appointment;
 import com.api.appointments.service.AppointmentService;
 import lombok.AllArgsConstructor;
@@ -27,10 +28,9 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Appointment> createAppointment(@RequestBody LocalDate date,
-                                                         @RequestBody String treatment,
-                                                         @RequestBody String patientLicense){
-        return new ResponseEntity<>(appointmentService.createAppointment(date, treatment, patientLicense), HttpStatus.CREATED);
+    public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointment){
+        return new ResponseEntity<>(appointmentService.createAppointment(appointment.getDate(),
+                appointment.getTreatment(), appointment.getPatientLicense()), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/id")
