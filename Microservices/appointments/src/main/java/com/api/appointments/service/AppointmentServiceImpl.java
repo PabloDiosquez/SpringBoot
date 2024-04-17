@@ -29,7 +29,7 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public Appointment createAppointment(LocalDate date, String treatment, String patientLicense) {
-        PatientDTO patient = apiConsume.getForObject("http://localhost:9001/patients/license/"+patientLicense, PatientDTO.class);
+        PatientDTO patient = apiConsume.getForObject("http://localhost:9001/patient/license/"+patientLicense, PatientDTO.class);
         assert patient != null;
         Appointment appointment = new Appointment();
         appointment.setDate(date);
