@@ -1,5 +1,6 @@
 package com.api.appointments.service;
 
+import com.api.appointments.dto.PatientDTO;
 import com.api.appointments.model.Appointment;
 import com.api.appointments.repository.AppointmentRepository;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,13 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public Appointment createAppointment(LocalDate date, String treatment, String patientLicense) {
-        return null;
+        PatientDTO patient = apiConsume.getForObject("http://localhost:9001/patients/license/"+patientLicense, PatientDTO.class);
+        assert patient != null;
+        Appointment appointment = new Appointment();
+        appointment.setDate(date);
+        appointment.setTreatment(treatment);
+        appointment.setPatientName(patient.getFirstname() + " " + patient.getLastname());
+        return appointmentRepository.save(appointment);
     }
 
     @Override

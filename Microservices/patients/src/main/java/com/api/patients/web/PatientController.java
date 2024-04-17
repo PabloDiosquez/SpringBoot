@@ -41,4 +41,9 @@ public class PatientController {
         return new ResponseEntity<>(patientService.updatePatient(id, patient), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/license/{licenseNumber}")
+    public ResponseEntity<Patient> getPatientByLicense(@PathVariable(name = "licenseNumber") String licenseNumber){
+        return new ResponseEntity<>(patientService.getPatientByLicense(licenseNumber), HttpStatus.OK);
+    }
+
 }

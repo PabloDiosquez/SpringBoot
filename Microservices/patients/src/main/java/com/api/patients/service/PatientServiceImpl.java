@@ -45,6 +45,11 @@ public class PatientServiceImpl implements PatientService{
         return patientRepository.save(old);
     }
 
+    @Override
+    public Patient getPatientByLicense(String licenseNumber) {
+        return patientRepository.findByLicenseNumber(licenseNumber);
+    }
+
     private Patient unwrapPatient(Optional<Patient> entity, Long id){
         if(entity.isPresent()){
             return entity.get();

@@ -10,4 +10,5 @@ public interface PatientService {
     Patient createPatient(Patient patient);
     void deletePatient(Long id);
     Patient updatePatient(Long id, Patient patient);
+    Patient getPatientByLicense(String licenseNumber);
 }
