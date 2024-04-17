@@ -4,6 +4,7 @@ import com.api.appointments.model.Appointment;
 import com.api.appointments.repository.AppointmentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 @Service
 public class AppointmentServiceImpl implements AppointmentService{
     private AppointmentRepository appointmentRepository;
+
+    private RestTemplate apiConsume;
     @Override
     public Appointment getAppointment(Long id) {
         return null;
