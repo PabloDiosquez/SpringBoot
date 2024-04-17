@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class AppointmentServiceImpl implements AppointmentService{
@@ -17,12 +19,12 @@ public class AppointmentServiceImpl implements AppointmentService{
     private RestTemplate apiConsume;
     @Override
     public Appointment getAppointment(Long id) {
-        return null;
+        return unwrapAppointment(appointmentRepository.findById(id), id);
     }
 
     @Override
     public List<Appointment> getAllAppointments() {
-        return null;
+        return appointmentRepository.findAll();
     }
 
     @Override
@@ -38,11 +40,22 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public void deleteAppointment(Long id) {
-
+        appointmentRepository.deleteById(id);
     }
 
     @Override
     public Appointment updateAppointment(Long id, Appointment appointment) {
-        return null;
+        Appointment old = getAppointment(id);
+        old.setDate(appointment.getDate());
+        old.setTreatment(appointment.getTreatment());
+        old.setPatientName(appointment.getPatientName());
+        return appointmentRepository.save(old);
+    }
+
+    private Appointment unwrapAppointment(Optional<Appointment> entity, Long id){
+        if(entity.isPresent()){
+            return entity.get();
+        }
+        throw new RuntimeException("The appointment with id '" + id + "' does not exist in our records.");
     }
 }
