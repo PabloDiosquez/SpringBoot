@@ -23,7 +23,8 @@ public class UserServiceImpl implements UserService{
     public UserDTO getUserAndPosts(int userId) {
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()){
-            return new UserDTO(user.get(), postApiClient.getPostsByUserId(userId));
+            return new UserDTO(user.get().getId(), user.get().getName(),
+                    user.get().getLastname(), user.get().getCellphone(), postApiClient.getPostsByUserId(userId));
         }
         throw new RuntimeException("The user does not exists");
     }

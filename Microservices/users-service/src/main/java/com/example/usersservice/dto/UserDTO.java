@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter @Setter
 public class UserDTO {
     private int id;
@@ -15,12 +16,4 @@ public class UserDTO {
     private String lastName;
     private String cellphone;
     private List<PostDTO> posts;
-
-    public UserDTO(User user, List<PostDTO> posts){
-        this.id = user.getId();
-        this.name = user.getName();
-        this.lastName = user.getLastname();
-        this.cellphone = user.getCellphone();
-        this.posts = posts;
-    }
 }
