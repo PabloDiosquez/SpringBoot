@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Service
 public class HotelServiceImpl implements HotelService{
 
-    private List<Hotel> hotels = new ArrayList<>();
+    private final List<Hotel> hotels = new ArrayList<>();
     @Override
     public List<Hotel> getHotelsByCityId(int cityId) {
         loadHotels();
