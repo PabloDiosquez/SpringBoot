@@ -1,4 +1,4 @@
-package com.example.citiessv.model;
+package com.example.citiessv.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,10 +8,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-public class City {
+public class HotelDTO {
+
     private int id;
     private String name;
-    private String state;
-    private String country;
-    private String continent;
+    private int stars;
+    private int cityId;
 }
