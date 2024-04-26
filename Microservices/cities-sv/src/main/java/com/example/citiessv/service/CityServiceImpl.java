@@ -19,10 +19,15 @@ public class CityServiceImpl implements CityService{
 
     @Override
     public CityDTO getHotelsByCity(String name, String country) {
+        City city = findCityByNameAndCountry(name, country);
+        return new CityDTO(city, hotelApiClient.getHotelsByCityId(city.getId()));
+    }
+
+    private City findCityByNameAndCountry(String name, String country){
         loadCities();
         for (City city: cities) {
             if(city.getName().equals(name) && city.getCountry().equals(country)){
-                return new CityDTO(city, hotelApiClient.getHotelsByCityId(city.getId()));
+                return city;
             }
         }
         throw new RuntimeException("The city does not exist in our records.");

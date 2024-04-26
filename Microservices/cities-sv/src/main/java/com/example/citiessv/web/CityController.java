@@ -6,10 +6,8 @@ import com.example.citiessv.service.CityService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping(path = "/cities")
@@ -17,9 +15,9 @@ public class CityController {
 
     private CityService cityService;
 
-    @GetMapping(path = "/hotels/{name}/{country}")
-    public ResponseEntity<CityDTO> getHotelsByCity(@PathVariable(name = "name") String name,
-                                                   @PathVariable(name = "country") String country){
+    @GetMapping(path = "/hotels")
+    public ResponseEntity<CityDTO> getHotelsByCity(@RequestParam String name,
+                                                   @RequestParam String country){
         return new ResponseEntity<>(cityService.getHotelsByCity(name, country), HttpStatus.OK);
     }
 }
