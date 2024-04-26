@@ -4,6 +4,8 @@ import com.example.citiessv.dto.CityDTO;
 import com.example.citiessv.dto.HotelDTO;
 import com.example.citiessv.model.City;
 import com.example.citiessv.repository.ApiClient;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,20 @@ public class CityServiceImpl implements CityService{
     private ApiClient hotelApiClient;
 
     @Override
+    @CircuitBreaker(name = "hotels-sv", fallbackMethod = "fallbackGetHotelsByCity")
+    @Retry(name = "hotels-sv")
     public CityDTO getHotelsByCity(String name, String country) {
         City city = findCityByNameAndCountry(name, country);
+        //createException();
         return new CityDTO(city, hotelApiClient.getHotelsByCityId(city.getId()));
+    }
+
+    public CityDTO fallbackGetHotelsByCity(Throwable throwable){
+        return new CityDTO(new City(-1, "ERROR", "ERROR", "ERROR", "ERROR"), null);
+    }
+
+    public void createException(){
+        throw new RuntimeException();
     }
 
     private City findCityByNameAndCountry(String name, String country){
