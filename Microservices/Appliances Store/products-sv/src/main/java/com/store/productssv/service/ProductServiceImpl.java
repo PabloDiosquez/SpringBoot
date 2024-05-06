@@ -12,23 +12,36 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
+
     @Override
-    public Optional<Product> getProductByCode(int code) {
-        return Optional.empty();
+    public Product createProduct(Product product) {
+        return null;
     }
 
     @Override
-    public Optional<List<Product>> getAllProducts() {
-        return Optional.empty();
+    public Product getProductByCode(int code) {
+        return null;
     }
 
     @Override
-    public Optional<Product> deleteProductByCode(int code) {
-        return Optional.empty();
+    public List<Product> getAllProducts() {
+        return null;
     }
 
     @Override
-    public Optional<Product> updateProduct(int code, Product product) {
-        return Optional.empty();
+    public Product deleteProductByCode(int code) {
+        return null;
+    }
+
+    @Override
+    public Product updateProduct(int code, Product product) {
+        return null;
+    }
+
+    private Product unwrappProduct(Optional<Product> entity, int code){
+        if(entity.isPresent()){
+            return entity.get();
+        }
+        throw new RuntimeException("The product with code '" + code + "' does not exist in our records.");
     }
 }
