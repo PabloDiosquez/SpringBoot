@@ -15,27 +15,29 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product createProduct(Product product) {
-        return null;
+        return productRepository.save(product);
     }
 
     @Override
     public Product getProductByCode(int code) {
-        return null;
+        return unwrappProduct(productRepository.findById(code), code);
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        return productRepository.findAll();
     }
 
     @Override
     public Product deleteProductByCode(int code) {
-        return null;
+        Product product = getProductByCode(code);
+        productRepository.deleteById(code);
+        return product;
     }
 
     @Override
     public Product updateProduct(int code, Product product) {
-        return null;
+        return updateProduct(getProductByCode(code), product);
     }
 
     private Product unwrappProduct(Optional<Product> entity, int code){
@@ -43,5 +45,12 @@ public class ProductServiceImpl implements ProductService{
             return entity.get();
         }
         throw new RuntimeException("The product with code '" + code + "' does not exist in our records.");
+    }
+
+    private Product updateProduct(Product old, Product current){
+        old.setName(current.getName());
+        old.setMark(current.getMark());
+        old.setPrice(current.getPrice());
+        return productRepository.save(old);
     }
 }
