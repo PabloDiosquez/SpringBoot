@@ -20,4 +20,9 @@ public class Pokemon {
 
     @Column(name = "type", nullable = false)
     private String type;
+
+    public Pokemon(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
 }

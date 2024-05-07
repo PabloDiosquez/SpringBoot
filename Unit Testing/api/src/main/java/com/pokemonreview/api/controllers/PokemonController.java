@@ -18,18 +18,17 @@ public class PokemonController {
     private PokemonService pokemonService;
     @GetMapping(path = "/all")
     public ResponseEntity<List<PokemonDTO>> getPokemons(){
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(pokemonService.getPokemons());
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<PokemonDTO> getPokemon(@PathVariable(name = "id") int id){
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(pokemonService.getPokemon(id));
     }
 
     @PostMapping(path = "/create")
     public ResponseEntity<PokemonDTO> createPokemon(@RequestBody PokemonDTO pokemon){
-        return new ResponseEntity<>(pokemon, HttpStatus.CREATED);
+        return new ResponseEntity<>(pokemonService.createPokemon(pokemon), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/delete/{id}")
