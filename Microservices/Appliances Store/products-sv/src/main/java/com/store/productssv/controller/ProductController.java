@@ -1,4 +1,4 @@
-package com.store.productssv.web;
+package com.store.productssv.controller;
 
 import com.store.productssv.model.Product;
 import com.store.productssv.service.ProductService;
