@@ -17,7 +17,7 @@ public class PokemonController {
 
     private PokemonService pokemonService;
     @GetMapping(path = "/all")
-    public ResponseEntity<List<PokemonDTO>> getPokemons(){
+    public ResponseEntity<List<Pokemon>> getPokemons(){
         return ResponseEntity.ok(pokemonService.getPokemons());
     }
 

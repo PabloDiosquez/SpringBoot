@@ -21,23 +21,29 @@ public class PokemonServiceImpl implements PokemonService{
     }
 
     @Override
-    public PokemonDTO getPokemon(int pokemonId) {
-        return null;
+    public PokemonDTO getPokemon(int id) {
+        return new PokemonDTO(unwrapPokemon(pokemonRepository.findById(id), id));
     }
 
     @Override
-    public List<PokemonDTO> getPokemons() {
-        return null;
+    public List<Pokemon> getPokemons() {
+        return pokemonRepository.findAll();
     }
 
     @Override
     public PokemonDTO deletePokemon(int id) {
-        return null;
+        Pokemon pokemon = unwrapPokemon(pokemonRepository.findById(id), id);
+        pokemonRepository.deleteById(id);
+        return new PokemonDTO(pokemon);
     }
 
     @Override
-    public PokemonDTO updatePokemon(int id, PokemonDTO pokemon) {
-        return null;
+    public PokemonDTO updatePokemon(int id, PokemonDTO pokemonDto) {
+        Pokemon pokemon = unwrapPokemon(pokemonRepository.findById(id), id);
+        pokemon.setName(pokemonDto.getName());
+        pokemon.setType(pokemonDto.getType());
+        pokemonRepository.save(pokemon);
+        return new PokemonDTO(pokemon);
     }
 
     private Pokemon unwrapPokemon(Optional<Pokemon> entity, int id){

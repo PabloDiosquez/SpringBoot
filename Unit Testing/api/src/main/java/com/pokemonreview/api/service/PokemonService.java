@@ -9,7 +9,7 @@ public interface PokemonService {
 
     PokemonDTO createPokemon(PokemonDTO pokemon);
     PokemonDTO getPokemon(int pokemonId);
-    List<PokemonDTO> getPokemons();
+    List<Pokemon> getPokemons();
     PokemonDTO deletePokemon(int id);
     PokemonDTO updatePokemon(int id, PokemonDTO pokemon);
 
