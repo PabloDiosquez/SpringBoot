@@ -2,6 +2,7 @@ package com.pokemonreview.api.controllers;
 
 import com.pokemonreview.api.models.Pokemon;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,19 @@ public class PokemonController {
         return ResponseEntity.ok(null);
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     public ResponseEntity<Pokemon> createPokemon(@RequestBody Pokemon pokemon){
-        return ResponseEntity.ok(pokemon);
+        return new ResponseEntity<>(pokemon, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<Pokemon> deletePokemon(@PathVariable(name = "id") int id){
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<Pokemon> updatePokemon(@PathVariable(name = "id") int id,
+                                                 @RequestBody Pokemon pokemon){
+        return new ResponseEntity<>(pokemon, HttpStatus.OK);
     }
 }
