@@ -43,8 +43,7 @@ public class PokemonServiceImpl implements PokemonService{
         Pokemon pokemon = unwrapPokemon(pokemonRepository.findById(id), id);
         pokemon.setName(pokemonDto.getName());
         pokemon.setType(pokemonDto.getType());
-        pokemonRepository.save(pokemon);
-        return mapToDTO(pokemon);
+        return mapToDTO(pokemonRepository.save(pokemon));
     }
 
     private Pokemon unwrapPokemon(Optional<Pokemon> entity, int id){

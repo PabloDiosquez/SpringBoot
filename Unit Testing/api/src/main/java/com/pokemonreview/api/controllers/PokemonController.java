@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 @AllArgsConstructor
 @RestController
@@ -22,7 +21,7 @@ public class PokemonController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<PokemonDTO> getPokemon(@PathVariable(name = "id") int id){
+    public ResponseEntity<PokemonDTO> pokemonDetail(@PathVariable(name = "id") int id){
         return ResponseEntity.ok(pokemonService.getPokemon(id));
     }
 
@@ -38,7 +37,7 @@ public class PokemonController {
 
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<PokemonDTO> updatePokemon(@PathVariable(name = "id") int id,
-                                                 @RequestBody PokemonDTO pokemon){
-        return new ResponseEntity<>(pokemon, HttpStatus.OK);
+                                                    @RequestBody PokemonDTO pokemonDto){
+        return new ResponseEntity<>(pokemonService.updatePokemon(id, pokemonDto), HttpStatus.OK);
     }
 }
