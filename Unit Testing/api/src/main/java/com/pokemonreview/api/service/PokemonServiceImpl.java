@@ -18,12 +18,12 @@ public class PokemonServiceImpl implements PokemonService{
     @Override
     public PokemonDTO createPokemon(PokemonDTO pokemonDto) {
         Pokemon pokemon = pokemonRepository.save(new Pokemon(pokemonDto.getName(), pokemonDto.getType()));
-        return new PokemonDTO(pokemon);
+        return mapToDTO(pokemon);
     }
 
     @Override
     public PokemonDTO getPokemon(int id) {
-        return new PokemonDTO(unwrapPokemon(pokemonRepository.findById(id), id));
+        return mapToDTO(unwrapPokemon(pokemonRepository.findById(id), id));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class PokemonServiceImpl implements PokemonService{
     public PokemonDTO deletePokemon(int id) {
         Pokemon pokemon = unwrapPokemon(pokemonRepository.findById(id), id);
         pokemonRepository.deleteById(id);
-        return new PokemonDTO(pokemon);
+        return mapToDTO(pokemon);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class PokemonServiceImpl implements PokemonService{
         pokemon.setName(pokemonDto.getName());
         pokemon.setType(pokemonDto.getType());
         pokemonRepository.save(pokemon);
-        return new PokemonDTO(pokemon);
+        return mapToDTO(pokemon);
     }
 
     private Pokemon unwrapPokemon(Optional<Pokemon> entity, int id){
@@ -52,5 +52,9 @@ public class PokemonServiceImpl implements PokemonService{
             return entity.get();
         }
         throw new PokemonNotFoundException("The pokemon with id '" + id + "' does not exist in our records.");
+    }
+
+    private PokemonDTO mapToDTO(Pokemon pokemon){
+        return new PokemonDTO(pokemon);
     }
 }

@@ -33,7 +33,7 @@ public class PokemonController {
 
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<PokemonDTO> deletePokemon(@PathVariable(name = "id") int id){
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(pokemonService.deletePokemon(id), HttpStatus.ACCEPTED);
     }
 
     @PutMapping(path = "/update/{id}")
