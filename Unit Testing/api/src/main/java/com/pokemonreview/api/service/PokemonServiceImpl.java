@@ -1,6 +1,7 @@
 package com.pokemonreview.api.service;
 
 import com.pokemonreview.api.dto.PokemonDTO;
+import com.pokemonreview.api.exception.PokemonNotFoundException;
 import com.pokemonreview.api.models.Pokemon;
 import com.pokemonreview.api.repository.PokemonRepository;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,6 @@ public class PokemonServiceImpl implements PokemonService{
         if(entity.isPresent()){
             return entity.get();
         }
-        throw new RuntimeException("The pokemon with id '" + id + "' does not exist in our records.");
+        throw new PokemonNotFoundException("The pokemon with id '" + id + "' does not exist in our records.");
     }
 }
