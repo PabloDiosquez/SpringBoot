@@ -1,14 +1,19 @@
 package com.pokemonreview.api.service;
 
 import com.pokemonreview.api.dto.PokemonDTO;
+import com.pokemonreview.api.dto.PokemonResponse;
 import com.pokemonreview.api.exception.PokemonNotFoundException;
 import com.pokemonreview.api.models.Pokemon;
 import com.pokemonreview.api.repository.PokemonRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -27,8 +32,10 @@ public class PokemonServiceImpl implements PokemonService{
     }
 
     @Override
-    public List<Pokemon> getPokemons() {
-        return pokemonRepository.findAll();
+    public PokemonResponse getPokemons(int pageNo, int pageSize) {
+        Pageable pageable = (Pageable) PageRequest.of(pageNo, pageSize);
+        Page<Pokemon> pokemons = pokemonRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        return new PokemonResponse((Page<Pokemon>) pageable, pokemons.getContent().stream().map(this::mapToDTO).collect(Collectors.toList()).reversed());
     }
 
     @Override

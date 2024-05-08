@@ -1,6 +1,7 @@
 package com.pokemonreview.api.controllers;
 
 import com.pokemonreview.api.dto.PokemonDTO;
+import com.pokemonreview.api.dto.PokemonResponse;
 import com.pokemonreview.api.models.Pokemon;
 import com.pokemonreview.api.service.PokemonService;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,9 @@ public class PokemonController {
 
     private PokemonService pokemonService;
     @GetMapping(path = "/all")
-    public ResponseEntity<List<Pokemon>> getPokemons(){
-        return ResponseEntity.ok(pokemonService.getPokemons());
+    public ResponseEntity<PokemonResponse> getPokemons(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+                                                       @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize){
+        return ResponseEntity.ok(pokemonService.getPokemons(pageNo, pageSize));
     }
 
     @GetMapping(path = "/{id}")
