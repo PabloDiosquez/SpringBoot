@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,6 +22,9 @@ public class Pokemon {
 
     @Column(name = "type", nullable = false)
     private String type;
+
+    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
 
     public Pokemon(String name, String type) {
         this.name = name;

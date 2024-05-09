@@ -23,4 +23,8 @@ public class Review {
 
     @Column(name = "stars")
     private int stars;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pokemon_id")
+    private Pokemon pokemon;
 }
