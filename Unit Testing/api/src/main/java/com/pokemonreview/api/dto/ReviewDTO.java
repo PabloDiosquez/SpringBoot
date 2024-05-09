@@ -20,4 +20,13 @@ public class ReviewDTO {
         this.content = review.getContent();
         this.stars = review.getStars();
     }
+
+    public static ReviewDTO copy(ReviewDTO OLD, ReviewDTO review){
+        ReviewDTO old = new ReviewDTO();
+        old.setId(review.getId());
+        old.setTitle(review.getTitle());
+        old.setContent(review.getContent());
+        old.setStars(review.getStars());
+        return old;
+    }
 }

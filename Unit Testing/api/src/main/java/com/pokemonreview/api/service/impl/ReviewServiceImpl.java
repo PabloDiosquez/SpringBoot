@@ -43,13 +43,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDTO updateReview(int pokemonId, int reviewId, ReviewDTO reviewDto) {
-        return null;
+    public ReviewDTO updateReview(int pokemonId, int reviewId, ReviewDTO reviewDTO) {
+        ReviewDTO old = getReviewById(reviewId, pokemonId);
+        return ReviewDTO.copy(old, reviewDTO);
     }
 
     @Override
     public ReviewDTO deleteReview(int pokemonId, int reviewId) {
-        return null;
+        ReviewDTO reviewDTO = getReviewById(reviewId, pokemonId);
+        reviewRepository.deleteById(reviewId);
+        return reviewDTO;
     }
 
     private ReviewDTO unwrapReview(Optional<Review> entity, int reviewId, int pokemonId){
