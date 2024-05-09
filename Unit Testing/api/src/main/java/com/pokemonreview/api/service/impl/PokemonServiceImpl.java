@@ -1,10 +1,11 @@
-package com.pokemonreview.api.service;
+package com.pokemonreview.api.service.impl;
 
 import com.pokemonreview.api.dto.PokemonDTO;
 import com.pokemonreview.api.dto.PokemonResponse;
 import com.pokemonreview.api.exception.PokemonNotFoundException;
 import com.pokemonreview.api.models.Pokemon;
 import com.pokemonreview.api.repository.PokemonRepository;
+import com.pokemonreview.api.service.PokemonService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
-public class PokemonServiceImpl implements PokemonService{
+public class PokemonServiceImpl implements PokemonService {
     private PokemonRepository pokemonRepository;
 
     @Override
