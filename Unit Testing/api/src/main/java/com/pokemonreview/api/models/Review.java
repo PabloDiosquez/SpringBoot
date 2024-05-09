@@ -1,5 +1,6 @@
 package com.pokemonreview.api.models;
 
+import com.pokemonreview.api.dto.ReviewDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,4 +28,11 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pokemon_id")
     private Pokemon pokemon;
+
+    public Review(ReviewDTO reviewDTO) {
+        this.id = reviewDTO.getId();
+        this.title = reviewDTO.getTitle();
+        this.content = reviewDTO.getContent();
+        this.stars = reviewDTO.getStars();
+    }
 }
