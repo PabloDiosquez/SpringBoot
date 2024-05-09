@@ -2,6 +2,7 @@ package com.pokemonreview.api.service.impl;
 
 import com.pokemonreview.api.dto.ReviewDTO;
 import com.pokemonreview.api.exception.PokemonNotFoundException;
+import com.pokemonreview.api.exception.ReviewNotFoundException;
 import com.pokemonreview.api.models.Pokemon;
 import com.pokemonreview.api.models.Review;
 import com.pokemonreview.api.repository.PokemonRepository;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -37,7 +39,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewDTO getReviewById(int reviewId, int pokemonId) {
-        return null;
+        return unwrapReview(reviewRepository.findById(reviewId), reviewId, pokemonId);
     }
 
     @Override
@@ -48,6 +50,16 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ReviewDTO deleteReview(int pokemonId, int reviewId) {
         return null;
+    }
+
+    private ReviewDTO unwrapReview(Optional<Review> entity, int reviewId, int pokemonId){
+        if(entity.isPresent()){
+            if(entity.get().getPokemon().getId() != pokemonId){
+                throw new ReviewNotFoundException("This review does not belong to a pokemon");
+            }
+            return mapToDTO(entity.get());
+        }
+        throw new ReviewNotFoundException("The review with id '" + reviewId + "' does not exist in our records");
     }
 
     private ReviewDTO mapToDTO(Review review){
