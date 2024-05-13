@@ -4,11 +4,14 @@ import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -17,29 +20,42 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf().disable()
-                .authorizeRequests()
-                .dispatcherTypeMatchers(HttpMethod.GET).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+                //.csrf().disable()
+                //.authorizeRequests()
+                //.dispatcherTypeMatchers(HttpMethod.GET).permitAll()
+                //.anyRequest().authenticated()
+                //.and()
+                //.httpBasic();
+                .authorizeHttpRequests(request -> 
+                        request.requestMatchers(HttpMethod.GET)
+                                .permitAll()
+                                .requestMatchers(HttpMethod.POST)
+                                .authenticated()
+                )
+                .httpBasic(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable());
 
         return httpSecurity.build();
     }
 
     @Bean
-    public UserDetailsService users(){
+    public UserDetailsService users(PasswordEncoder passwordEncoder){
         UserDetails admin = User.builder()
                 .username("admin")
-                .password("admin_pass")
+                .password(passwordEncoder.encode("admin_pass"))
                 .roles("ADMIN")
                 .build();
 
         UserDetails user = User.builder()
                 .username("user")
-                .password("user_pass")
+                .password(passwordEncoder.encode("user_pass"))
                 .roles("USER")
                 .build();
 
