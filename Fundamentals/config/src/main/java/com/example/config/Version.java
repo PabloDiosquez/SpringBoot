@@ -1,8 +1,5 @@
 package com.example.config;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Version {
     private final int major;
     private final int minor;
@@ -16,6 +13,6 @@ public class Version {
 
     @Override
     public String toString() {
-        return String.format("Mayor: %s, Minor: %s, Revision: %s", major, minor, revision);
+        return String.format("%s.%s.%s", major, minor, revision);
     }
 }
