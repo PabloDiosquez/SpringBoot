@@ -1,15 +1,16 @@
 package com.example.spring.data.jpa.repository;
 
 import com.example.spring.data.jpa.entity.Student;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-@AllArgsConstructor
 @SpringBootTest
 class StudentRepositoryTest {
+    @Autowired
     private StudentRepository studentRepository;
     @Test
     public void saveStudent(){
@@ -23,6 +24,12 @@ class StudentRepositoryTest {
                 .build();
 
         studentRepository.save(student);
+    }
+    @Test
+    public void printAllStudents(){
+        List<Student> studentList = studentRepository.findAll();
+
+        System.out.println("studentList = " + studentList);
     }
 
 }
