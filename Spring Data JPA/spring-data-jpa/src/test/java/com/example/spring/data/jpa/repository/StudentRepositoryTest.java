@@ -1,13 +1,12 @@
 package com.example.spring.data.jpa.repository;
 
+import com.example.spring.data.jpa.entity.Guardian;
 import com.example.spring.data.jpa.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class StudentRepositoryTest {
     @Autowired
@@ -18,9 +17,27 @@ class StudentRepositoryTest {
                 .firstname("John")
                 .lastname("Wick")
                 .email("johnwick1980@gmail.com")
-                .guardianName("Winston")
-                .guardianEmail("winston1970@gmail.com")
-                .guardianMobile("555-1234-0001")
+                //.guardianName("Winston")
+                //.guardianEmail("winston1970@gmail.com")
+                //.guardianMobile("555-1234-0001")
+                .build();
+
+        studentRepository.save(student);
+    }
+
+    @Test
+    public void saveStudentWithGuardian(){
+        Guardian guardian = Guardian.builder()
+                .name("Sarah Connor")
+                .email("sarahconnor1975@gmail.com")
+                .mobile("555-0987-1111")
+                .build();
+
+        Student student = Student.builder()
+                .firstname("John")
+                .lastname("Connor")
+                .email("johnconnor1990@gmail.com")
+                .guardian(guardian)
                 .build();
 
         studentRepository.save(student);
