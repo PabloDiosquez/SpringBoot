@@ -28,7 +28,9 @@ public class CourseMaterial {
     @Column(name = "course_url", nullable = false, unique = true)
     private String url;
 
-    @OneToOne
+    @OneToOne(
+            cascade = CascadeType.ALL
+    )
     @JoinColumn(
             name = "course_id",
             referencedColumnName = "id"
