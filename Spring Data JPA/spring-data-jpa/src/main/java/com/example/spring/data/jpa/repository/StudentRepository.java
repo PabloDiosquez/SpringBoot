@@ -1,7 +1,9 @@
 package com.example.spring.data.jpa.repository;
 
 import com.example.spring.data.jpa.entity.Student;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -30,5 +32,11 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             nativeQuery = true
     )
     Student getStudentByEmailAddressNativeNamedParam(@Param("emailAddress") String email);
-
+    @Modifying
+    @Transactional
+    @Query(
+            value = "UPDATE students SET firstname = :firstname WHERE email_address = :email",
+            nativeQuery = true
+    )
+    int updateStudentFirstnameByEmailAddress(@Param("firstname") String firstname,@Param("email") String email);
 }
