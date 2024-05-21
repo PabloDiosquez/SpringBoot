@@ -31,4 +31,10 @@ public class Course {
     @Column(name = "credit")
     private int credit;
 
+    @OneToOne(
+            mappedBy = "course",
+            fetch = FetchType.EAGER
+    )
+    private CourseMaterial courseMaterial;
+
 }
