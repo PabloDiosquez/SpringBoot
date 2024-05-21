@@ -33,8 +33,18 @@ public class Course {
 
     @OneToOne(
             mappedBy = "course",
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            optional = false
     )
     private CourseMaterial courseMaterial;
+
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "teacher_id",
+            referencedColumnName = "id"
+    )
+    private Teacher teacher;
 
 }
