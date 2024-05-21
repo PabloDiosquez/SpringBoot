@@ -36,7 +36,7 @@ public class Student {
     @Column(nullable = false)
     private String lastname;
 
-    @Column(name = "email_address", nullable = false)
+    @Column(name = "email_address", nullable = false, unique = true)
     private String email;
 
     @Embedded
