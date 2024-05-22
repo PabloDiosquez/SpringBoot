@@ -1,10 +1,7 @@
 package com.example.spring.data.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Table(name = "courses")
+@ToString(exclude = "courseMaterial")
 public class Course {
     @Id
     @GeneratedValue(

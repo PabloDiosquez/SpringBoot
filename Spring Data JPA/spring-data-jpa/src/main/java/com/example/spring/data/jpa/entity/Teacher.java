@@ -37,7 +37,8 @@ public class Teacher {
     private String lastname;
 
     @OneToMany(
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
     )
     /*@JoinColumn(
             name = "teacher_id",

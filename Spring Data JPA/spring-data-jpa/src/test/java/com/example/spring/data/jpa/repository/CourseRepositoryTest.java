@@ -5,6 +5,9 @@ import com.example.spring.data.jpa.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -35,6 +38,20 @@ class CourseRepositoryTest {
                 .build();
 
         courseRepository.save(course);
+    }
+
+    @Test
+    public void findAllPagination() {
+        Pageable firstPageWithThreeRecords = PageRequest.of(0, 3);
+        Page<Course> coursePage = courseRepository.findAll(firstPageWithThreeRecords);
+
+        List<Course> courses = coursePage.getContent();
+        long totalElements = coursePage.getTotalElements();
+        long totalPages = coursePage.getTotalPages();
+
+        System.out.println("totalElements = " + totalElements);
+        System.out.println("totalPages = " + totalPages);
+        System.out.println("courses = " + courses);
     }
 
 }
