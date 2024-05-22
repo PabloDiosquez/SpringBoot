@@ -3,6 +3,9 @@ package com.example.spring.data.jpa.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -44,5 +47,25 @@ public class Course {
             referencedColumnName = "id"
     )
     private Teacher teacher;
+
+    @ManyToMany(
+            cascade = CascadeType.ALL
+    )
+    @JoinTable(
+            name = "students-courses",
+            joinColumns = @JoinColumn(
+                    name = "course_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "student_id",
+                    referencedColumnName = "id"
+            )
+    )
+    private List<Student> students;
+
+    public void addStudent(Student student){
+        students.add(student);
+    }
 
 }

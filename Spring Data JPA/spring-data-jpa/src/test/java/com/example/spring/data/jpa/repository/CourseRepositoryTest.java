@@ -1,7 +1,10 @@
 package com.example.spring.data.jpa.repository;
 
 import com.example.spring.data.jpa.entity.Course;
+import com.example.spring.data.jpa.entity.Guardian;
+import com.example.spring.data.jpa.entity.Student;
 import com.example.spring.data.jpa.entity.Teacher;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class CourseRepositoryTest {
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
+    private StudentRepository studentRepository;
     @Test
     public void printAllCourses(){
         List<Course> courses =
@@ -83,6 +91,37 @@ class CourseRepositoryTest {
                 courseRepository.findByTitleContaining("Bio", firstPageTenRecords).getContent();
 
         System.out.println("courses = " + courses);
+    }
+    @Test
+    public void saveCourseWithStudentAndTeacher(){
+        Teacher teacher = Teacher.builder()
+                .firstname("Lily")
+                .lastname("Potter")
+                .build();
+        //teacherRepository.save(teacher);
+
+        Student student = Student.builder()
+                .firstname("Hermione")
+                .lastname("Granger")
+                .email("ronweasley123@gmail.com")
+                .guardian(Guardian.builder()
+                        .name("Harry")
+                        .mobile("555-111-0002")
+                        .email("hpotter1980@gmail.com")
+                        .build())
+                .build();
+        //studentRepository.save(student);
+
+        Course course = Course.builder()
+                .title("AI")
+                .credit(8)
+                .teacher(teacher)
+                .students(new ArrayList<>())
+                .build();
+
+        course.addStudent(student);
+
+        courseRepository.save(course);
     }
 
 }
