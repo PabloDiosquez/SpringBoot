@@ -20,10 +20,12 @@ public class RegistrationController {
     @PostMapping(path = "/register")
     public ResponseEntity<UserEntity> registerUser(@RequestBody UserModel userModel){
         UserEntity user = userEntityService.registerUser(userModel);
-        publisher.publishEvent(RegistrationCompleteEvent.builder()
+        publisher.publishEvent(
+                RegistrationCompleteEvent.builder()
                 .user(user)
                 .applicationUrl("url")
-                .build());
+                .build()
+        );
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
