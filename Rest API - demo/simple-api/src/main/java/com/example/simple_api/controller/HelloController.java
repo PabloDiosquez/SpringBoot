@@ -13,7 +13,7 @@ public class HelloController {
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String sayHello() {
         // Return a simple greeting message
-        return "Hello!";
+        return "Hello everyone!!";
     }
 
     // Define a route to handle HTTP GET requests at paths like "/{name}"
