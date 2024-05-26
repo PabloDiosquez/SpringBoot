@@ -5,16 +5,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+// Mark this class as a REST controller, which allows it to handle HTTP requests
 @RestController
 public class HelloController {
 
+    // Define a route to handle HTTP GET requests at the root path ("/")
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String sayHello(){
+    public String sayHello() {
+        // Return a simple greeting message
         return "Hello!";
     }
 
+    // Define a route to handle HTTP GET requests at paths like "/{name}"
     @GetMapping(path = "/{name}")
-    public String sayHello(@PathVariable(name = "name", required = false) String name){
+    public String sayHello(@PathVariable(name = "name", required = false) String name) {
+        // Return a personalized greeting message including the provided name
         return "Hello " + name + "!";
     }
 }
