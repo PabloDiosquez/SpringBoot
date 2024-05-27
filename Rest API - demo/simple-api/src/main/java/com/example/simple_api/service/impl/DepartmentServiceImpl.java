@@ -6,6 +6,7 @@ import com.example.simple_api.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -27,6 +28,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department getDepartmentByCode(String code) {
         return departmentRepository.findByCode(code);
+    }
+
+    @Override
+    public List<Department> getDepartments() {
+        return departmentRepository.findAll();
     }
 
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping(path = "/departments")
@@ -16,6 +18,11 @@ public class DepartmentController {
     @PostMapping
     public ResponseEntity<Department> saveDepartment(@RequestBody Department department){
         return new ResponseEntity<>(departmentService.saveDepartment(department), HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<Department>> getDepartments(){
+        return new ResponseEntity<>(departmentService.getDepartments(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
