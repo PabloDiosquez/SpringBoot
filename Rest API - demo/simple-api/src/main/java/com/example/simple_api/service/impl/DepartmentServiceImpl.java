@@ -35,4 +35,28 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.findAll();
     }
 
+    @Override
+    public Department deleteDepartment(int id) {
+        Department department = getDepartment(id);
+        departmentRepository.deleteById(id);
+        return department;
+    }
+
+    @Override
+    public Department deleteDepartmentByCode(String code) {
+        Department department = getDepartmentByCode(code);
+        departmentRepository.deleteByCode(code);
+        return department;
+    }
+
+    @Override
+    public Department updateDepartment(int id, Department department) {
+        Department oldie = getDepartment(id);
+        if(id != oldie.getId()){
+            throw new RuntimeException("The ID's do not match.");
+        }
+        Department.copy(oldie, department);
+        return saveDepartment(oldie);
+    }
+
 }

@@ -14,7 +14,20 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "address", nullable = false)
     private String address;
+
+    @Column(name = "code", nullable = false, unique = true)
     private String code;
+
+    public static Department copy(Department oldie, Department current){
+        oldie.setName(current.getName());
+        oldie.setAddress(current.getAddress());
+        oldie.setCode(current.getCode());
+        return oldie;
+    }
 }
