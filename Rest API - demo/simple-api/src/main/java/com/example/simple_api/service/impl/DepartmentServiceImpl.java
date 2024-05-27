@@ -18,4 +18,15 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.save(department);
     }
 
+    @Override
+    public Department getDepartment(int id) {
+        return departmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("The ID is not in our records."));
+    }
+
+    @Override
+    public Department getDepartmentByCode(String code) {
+        return departmentRepository.findByCode(code);
+    }
+
 }
