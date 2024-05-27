@@ -24,7 +24,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("The ID is not in our records."));
     }
-
+    @Override
+    public List<Department> getDepartmentsByName(String name) {
+        //return departmentRepository.findByName(name);
+        return departmentRepository.findByNameIgnoreCase(name);
+    }
     @Override
     public Department getDepartmentByCode(String code) {
         return departmentRepository.findByCode(code);
@@ -55,5 +59,6 @@ public class DepartmentServiceImpl implements DepartmentService {
         Department.copy(oldie, department);
         return saveDepartment(oldie);
     }
+
 
 }
