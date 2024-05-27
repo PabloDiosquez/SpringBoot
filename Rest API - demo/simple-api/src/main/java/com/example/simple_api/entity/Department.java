@@ -1,9 +1,13 @@
 package com.example.simple_api.entity;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Objects;
+import java.util.function.Consumer;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,10 +28,16 @@ public class Department {
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    public static Department copy(Department oldie, Department current){
-        oldie.setName(current.getName());
-        oldie.setAddress(current.getAddress());
-        oldie.setCode(current.getCode());
-        return oldie;
+    public static void copy(Department oldie, Department current) {
+        copyIfNotBlank(current.getName(), oldie::setName);
+        copyIfNotBlank(current.getAddress(), oldie::setAddress);
+        copyIfNotBlank(current.getCode(), oldie::setCode);
     }
+
+    private static void copyIfNotBlank(String value, Consumer<String> setter) {
+        if (StringUtils.isNotBlank(value)) {
+            setter.accept(value);
+        }
+    }
+
 }
