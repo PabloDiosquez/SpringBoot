@@ -21,5 +21,4 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 .build();
         return new ResponseEntity<>(error, error.getStatus());
     }
-
 }
