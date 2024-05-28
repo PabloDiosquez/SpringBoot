@@ -18,7 +18,7 @@ class DepartmentServiceTest {
     private DepartmentService departmentService;
     @MockBean
     private DepartmentRepository departmentRepository;
-    
+
     @BeforeEach
     void setUp() {
         Department department = Department.builder()
