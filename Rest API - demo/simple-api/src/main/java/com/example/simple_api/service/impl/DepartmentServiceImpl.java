@@ -1,6 +1,7 @@
 package com.example.simple_api.service.impl;
 
 import com.example.simple_api.entity.Department;
+import com.example.simple_api.exception.DepartmentNotFoundException;
 import com.example.simple_api.repository.DepartmentRepository;
 import com.example.simple_api.service.DepartmentService;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department getDepartment(int id) {
-        return departmentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("The ID is not in our records."));
+        return unwrap(departmentRepository.findById(id), id);
     }
     @Override
     public List<Department> getDepartmentsByName(String name) {
@@ -60,5 +60,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         return saveDepartment(oldie);
     }
 
+    private Department unwrap(Optional<Department> optional, int id){
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        throw new DepartmentNotFoundException("The ID is not in our records.");
+    }
 
 }

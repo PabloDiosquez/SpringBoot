@@ -4,6 +4,8 @@ import com.example.simple_api.entity.Department;
 import com.example.simple_api.service.DepartmentService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,12 @@ import java.util.List;
 public class DepartmentController {
     private DepartmentService departmentService;
 
+    private final Logger logger =
+            LoggerFactory.getLogger(DepartmentController.class);
+
     @PostMapping
     public ResponseEntity<Department> saveDepartment(@Valid @RequestBody Department department){
+        logger.info("Inside 'saveDepartment' from 'DepartmentController'");
         return new ResponseEntity<>(departmentService.saveDepartment(department), HttpStatus.CREATED);
     }
 
@@ -28,6 +34,7 @@ public class DepartmentController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Department> getDepartment(@PathVariable(name = "id") int id){
+        logger.info("Inside 'getDepartment' from 'DepartmentController'");
         return new ResponseEntity<>(departmentService.getDepartment(id), HttpStatus.OK);
     }
 
