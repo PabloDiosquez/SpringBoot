@@ -4,6 +4,7 @@ import com.example.simple_api.entity.Department;
 import com.example.simple_api.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ class DepartmentServiceTest {
     private DepartmentService departmentService;
     @MockBean
     private DepartmentRepository departmentRepository;
+    
     @BeforeEach
     void setUp() {
         Department department = Department.builder()
@@ -30,6 +32,7 @@ class DepartmentServiceTest {
                 .thenReturn(department);
     }
     @Test
+    @DisplayName("Get data based on Valid code")
     public void whenValidDepartmentCode_thenDepartmentShouldFound(){
         String code = "IT-0X2";
         Department departmentFound =
