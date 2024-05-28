@@ -2,11 +2,13 @@ package com.example.simple_api.entity;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 
 @NoArgsConstructor
@@ -19,6 +21,8 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "The department's name can not be blank")
+    @Length(max = 10, min = 1, message = "The number of characters must be between 1 and 10 inclusive")
     @Column(name = "name", nullable = false)
     private String name;
 

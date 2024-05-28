@@ -2,6 +2,7 @@ package com.example.simple_api.controller;
 
 import com.example.simple_api.entity.Department;
 import com.example.simple_api.service.DepartmentService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @PostMapping
-    public ResponseEntity<Department> saveDepartment(@RequestBody Department department){
+    public ResponseEntity<Department> saveDepartment(@Valid @RequestBody Department department){
         return new ResponseEntity<>(departmentService.saveDepartment(department), HttpStatus.CREATED);
     }
 
