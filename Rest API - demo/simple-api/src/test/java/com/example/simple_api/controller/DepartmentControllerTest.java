@@ -28,7 +28,7 @@ class DepartmentControllerTest {
         department = Department.builder()
                 .id(1)
                 .name("CE")
-                .address("Graddle Street 932")
+                .address("Json Street 932")
                 .code("CE-91Y")
                 .build();
     }
@@ -37,7 +37,7 @@ class DepartmentControllerTest {
     void saveDepartment() throws Exception {
         Department input = Department.builder()
                 .name("CE")
-                .address("Graddle Street 932")
+                .address("Json Street 932")
                 .code("CE-91Y")
                 .build();
 
@@ -45,16 +45,28 @@ class DepartmentControllerTest {
                 .thenReturn(department);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/departments")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\n" +
-                        "    \"name\": \"CE\",\n" +
-                        "    \"address\": \"Graddle Street 932\",\n" +
-                        "    \"code\": \"CE-91Y\"\n" +
-                        "}"))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "    \"name\": \"CE\",\n" +
+                                "    \"address\": \"Json Street 932\",\n" +
+                                "    \"code\": \"CE-91Y\"\n" +
+                                "}"))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(department.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(department.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.address").value(department.getAddress()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(department.getCode()));
     }
 
     @Test
-    void getDepartment() {
+    void getDepartment() throws Exception {
+        Mockito.when(departmentService.getDepartment(department.getId()))
+                .thenReturn(department);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/departments/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code")
+                        .value(department.getCode()));
     }
 }
