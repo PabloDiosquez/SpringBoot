@@ -12,5 +12,8 @@ public class DemoApplication {
 
 		MyFirstService myFirstService = context.getBean(MyFirstService.class);
 		System.out.println("Story = " + myFirstService.tellAStory());
+		System.out.println("Java version = " + myFirstService.getJavaVersion());
+		System.out.println("OS = " + myFirstService.getOS());
+		System.out.println("My custom property = " + myFirstService.readProp());
     }
 }
