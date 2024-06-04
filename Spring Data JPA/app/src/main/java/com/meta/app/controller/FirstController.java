@@ -2,21 +2,20 @@ package com.meta.app.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class FirstController {
 
     @GetMapping(path = "/hi")
+    //@ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> sayHi(){
         return new ResponseEntity<>("Hi from my first controller! :)", HttpStatus.OK);
     }
 
-    @GetMapping(path = "/hi-bis")
-    @ResponseStatus(HttpStatus.OK)
-    public String sayHiBis(){
-        return "Hi from my first controller! *)";
+    @PostMapping(path = "/post")
+    public ResponseEntity<String> post(@RequestBody String message){
+        return new ResponseEntity<>("Request accepted - Message: " + message, HttpStatus.ACCEPTED);
     }
+
 }
