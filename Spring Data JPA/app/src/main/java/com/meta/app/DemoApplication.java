@@ -15,7 +15,6 @@ public class DemoApplication {
 		System.out.println("Java version = " + myFirstService.getJavaVersion());
 		System.out.println("OS = " + myFirstService.getOS());
 		System.out.println("My custom property = " + myFirstService.readProp());
-		System.out.println("myFirstService.getPropValue() = " + myFirstService.getPropValue());
 		System.out.println("My custom prop = " + myFirstService.getCustomProp());
 		System.out.println("My custom prop bis= " + myFirstService.getCustomPropBis());
     }
