@@ -1,4 +1,4 @@
-package com.meta.app;
+package com.meta.app.demo;
 
 public class MyFirstClass {
     private final String message;

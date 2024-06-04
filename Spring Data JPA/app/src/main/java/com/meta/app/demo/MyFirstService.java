@@ -1,7 +1,8 @@
-package com.meta.app;
+package com.meta.app.demo;
 
 
 
+import com.meta.app.demo.MyFirstClass;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
