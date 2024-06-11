@@ -10,19 +10,21 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "students")
+@Table(name = "students", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"last-name", "email-address"})
+})
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "first-name", nullable = false)
+    @Column(name = "first-name", nullable = false, length = 25)
     private String firstName;
 
-    @Column(name = "last-name", nullable = false)
+    @Column(name = "last-name", nullable = false, length = 50)
     private String lastName;
 
-    @Column(name = "email-address")
+    @Column(name = "email-address", length = 100)
     private String email;
 
     @Temporal(TemporalType.DATE)
