@@ -1,6 +1,7 @@
 package com.meta.app.controller;
 
 import com.meta.app.entity.Order;
+import com.meta.app.entity.OrderRecord;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,11 @@ public class FirstController {
     @PostMapping(path = "/post-order")
     public ResponseEntity<String> postOrder(@RequestBody Order order){
         return new ResponseEntity<>("Request accepted - Order: " + order, HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/post-order-record")
+    public ResponseEntity<String> postRecorde(@RequestBody OrderRecord orderRecord){
+        return new ResponseEntity<>(orderRecord.toString(), HttpStatus.OK);
     }
 
 }
