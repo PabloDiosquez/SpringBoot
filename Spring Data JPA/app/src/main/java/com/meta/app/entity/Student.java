@@ -19,10 +19,10 @@ public class Student {
     private int id;
 
     @Column(name = "first-name", nullable = false, length = 25)
-    private String firstName;
+    private String firstname;
 
     @Column(name = "last-name", nullable = false, length = 50)
-    private String lastName;
+    private String lastname;
 
     @Column(name = "email-address", length = 100)
     private String email;

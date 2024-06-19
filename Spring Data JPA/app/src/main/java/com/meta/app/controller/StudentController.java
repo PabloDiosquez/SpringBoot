@@ -16,7 +16,7 @@ public class StudentController {
     private StudentRepository studentRepository;
 
     @GetMapping(path = "/")
-    public ResponseEntity<List<Student>> getStudents(){
+    public ResponseEntity<List<Student>> getAllStudents(){
         return new ResponseEntity<>(studentRepository.findAll(), HttpStatus.OK);
     }
 
@@ -29,5 +29,10 @@ public class StudentController {
     @PostMapping(path = "/")
     public ResponseEntity<Student> saveStudent(@RequestBody Student student){
         return new ResponseEntity<>(studentRepository.save(student), HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/lastname/{lastname}")
+    public ResponseEntity<List<Student>> getAllStudentsByLastname(@PathVariable(name = "lastname") String lastname){
+        return new ResponseEntity<>(studentRepository.findByLastname(lastname), HttpStatus.OK);
     }
 }
