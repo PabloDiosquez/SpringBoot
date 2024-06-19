@@ -31,8 +31,20 @@ public class StudentController {
         return new ResponseEntity<>(studentRepository.save(student), HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/lastname/{lastname}")
+    @GetMapping(path = "/search/{lastname}")
     public ResponseEntity<List<Student>> getAllStudentsByLastname(@PathVariable(name = "lastname") String lastname){
-        return new ResponseEntity<>(studentRepository.findByLastname(lastname), HttpStatus.OK);
+        return new ResponseEntity<>(studentRepository.findAllByLastname(lastname), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/search-characters/{characters}")
+    public ResponseEntity<List<Student>> getAllStudentsByLastnameContaining(@PathVariable(name = "characters") String characters){
+        return new ResponseEntity<>(studentRepository.findAllByLastnameContaining(characters), HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Student> deleteStudent(@PathVariable(name = "id") int id){
+        Student deleted = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("ID not found in our records"));
+        studentRepository.deleteById(id);
+        return new ResponseEntity<>(deleted, HttpStatus.ACCEPTED);
     }
 }

@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
-    List<Student> findByLastname(String lastname);
+    List<Student> findAllByLastname(String lastname);
+    List<Student> findAllByLastnameContaining(String characters);
 }
