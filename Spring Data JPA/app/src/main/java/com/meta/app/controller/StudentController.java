@@ -47,4 +47,11 @@ public class StudentController {
         studentRepository.deleteById(id);
         return new ResponseEntity<>(deleted, HttpStatus.ACCEPTED);
     }
+
+    @DeleteMapping(path = "/delete/lastname/{lastname}")
+    public ResponseEntity<List<Student>> deleteAllStudentsByLastname(@PathVariable(name = "lastname") String lastname){
+        List<Student> students = studentRepository.findAllByLastname(lastname);
+        studentRepository.deleteAllByLastname(lastname);
+        return new ResponseEntity<>(students, HttpStatus.ACCEPTED);
+    }
 }
